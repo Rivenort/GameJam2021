@@ -41,7 +41,8 @@ namespace BestGameEver
             m_assetsToLoad = 0;
             Debug.Log("Scanning...");
             m_currentAssetsLoaded = 0;
-            List<Type> toLoadClasses = UT_Algorithms.GetSingletons("Core");
+            List<Type> toLoadClasses = UT_Algorithms.GetSingletons("Assembly-CSharp");
+
             foreach (Type type in toLoadClasses)
             {
                 if (typeof(UT_IRequiresLoading).IsAssignableFrom(type))

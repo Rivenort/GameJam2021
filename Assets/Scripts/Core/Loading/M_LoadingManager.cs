@@ -54,12 +54,14 @@ namespace BestGameEver
         
         private IEnumerator Load()
         {
+
             while (m_config == null)
             {
                 Debug.Log("Waiting for config to be loaded... ");
                 yield return new LoadingProgress(0f, "Waiting for config to be loaded... ");
             }
             yield return new LoadingProgress(0.1f,  "Loading assets...");
+
             m_loadingHelper.LoadAssets(m_config);
 
             M_SceneLoaderManager.SLoadScene(2);
@@ -69,6 +71,7 @@ namespace BestGameEver
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
+            Debug.Log("Load");
             return s_instance.Load();
         }
 
