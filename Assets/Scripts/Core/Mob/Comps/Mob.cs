@@ -13,7 +13,7 @@ namespace BestGameEver
         private Guid m_id;
         [SerializeField]
         PlayerType m_player;
-        [SerializeReference]
+        [SerializeField]
         private MobStats m_stats;
 
         private MobMotor m_motor;

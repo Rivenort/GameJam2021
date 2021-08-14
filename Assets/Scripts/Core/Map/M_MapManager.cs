@@ -13,7 +13,8 @@ namespace BestGameEver
     public class M_MapManager : UT_IDoOnGameStart,
                                 UT_IOnMobActionCompleted,
                                 UT_IClearable,
-                                UT_IOnMobCreated
+                                UT_IOnMobCreated,
+                                UT_IOnMobDestroyed
     {
         private static M_MapManager s_instance = null;
         private static readonly object s_lock = new object();
@@ -313,6 +314,11 @@ namespace BestGameEver
         }
 
         public void OnMobCreated(IMob mob)
+        {
+            ScanMobs();
+        }
+
+        public void OnMobDestroyed(Guid mobId)
         {
             ScanMobs();
         }
