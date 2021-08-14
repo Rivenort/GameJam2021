@@ -17,6 +17,8 @@ namespace BestGameEver
         public Button uiBtnGoUp;
         public Button uiBtnGoDown;
 
+        private bool m_actionIsRunning = false;
+
         private IMob m_mob = null;
 
         void Start()
@@ -48,32 +50,42 @@ namespace BestGameEver
 
         public void OnMobClick()
         {
-            uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
+            if (!m_actionIsRunning)
+                uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
         }
 
         private void ActionGoLeft()
         {
             m_mob.PerformGoLeft(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
         }
 
         private void ActionGoRight()
         {
             m_mob.PerformGoRight(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
         }
 
         private void ActionGoUp()
         {
             m_mob.PerformGoUp(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
         }
 
         private void ActionGoDown()
         {
             m_mob.PerformGoDown(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
         }
 
         private void OnActionComplete()
         {
             Debug.Log("Action completed.");
+            m_actionIsRunning = false;
         }
     }
 

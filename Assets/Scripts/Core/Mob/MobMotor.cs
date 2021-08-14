@@ -44,7 +44,7 @@ namespace BestGameEver
         private void Move()
         {
             float distLeft = Vector3.Distance(gameObject.transform.position, m_dest);
-            Debug.Log(distLeft + " GO: " + gameObject.transform.position + " Dest: " + m_dest);
+            //Debug.Log(distLeft + " GO: " + gameObject.transform.position + " Dest: " + m_dest);
             if (distLeft > m_offset)
             {
                 Vector3 nextStep = m_dir * m_speed * Time.deltaTime + mainObject.transform.position;
