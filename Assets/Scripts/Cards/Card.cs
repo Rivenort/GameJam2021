@@ -7,10 +7,11 @@ public class Card : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI T_Name, T_Cost, T_Distance, T_Attack, T_Deffence, T_Hp;
 
+    [SerializeField] GameObject _sprite;
     string Name;
     int Cost, MoveCost, AttackType, Distance, Attack, AttackCost, Hp, Armour;
 
-    public void SetData(string name,  int cost, int moveCost,int attackType,int distance, int attack,int attackCost, int hp,int armour)
+    public void SetData(Sprite sprite,string name,  int cost, int moveCost,int attackType,int distance, int attack,int attackCost, int hp,int armour)
     {
         Name = name;
         Cost = cost;
@@ -29,5 +30,7 @@ public class Card : MonoBehaviour
         T_Attack.text = attack.ToString();
         T_Deffence.text = armour.ToString();
         T_Hp.text = hp.ToString();
+
+        _sprite.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 }

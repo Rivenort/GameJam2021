@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123a190a7f2986d42a9fe59b75a2c6fb, type: 3}
   m_Name: JohnnyBravo
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
+  Character: {fileID: 21300000, guid: ddace38425ab32a469a0b3d36bba254e, type: 3}
   Name: JohnnyBravo
   Cost: 2
   Distance: 0

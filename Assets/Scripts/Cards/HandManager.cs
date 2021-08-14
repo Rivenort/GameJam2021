@@ -75,7 +75,7 @@ namespace BestGameEver
                     if (Hand1[i].AttackType == 0)
                     {
                         GameObject instCard = Instantiate(MeleeCardPrefab, Position, Quaternion.identity, CardSpawner.transform);
-                        instCard.GetComponent<Card>().SetData(Hand1[i].Name, Hand1[i].Cost, Hand1[i].MoveCost, Hand1[i].AttackType, Hand1[i].Distance, Hand1[i].Attack, Hand1[i].AttackCost, Hand1[i].Hp, Hand1[i].Armour);
+                        instCard.GetComponent<Card>().SetData(Hand1[i].Character,Hand1[i].Name, Hand1[i].Cost, Hand1[i].MoveCost, Hand1[i].AttackType, Hand1[i].Distance, Hand1[i].Attack, Hand1[i].AttackCost, Hand1[i].Hp, Hand1[i].Armour);
 
 
 
@@ -92,7 +92,7 @@ namespace BestGameEver
                     if (Hand1[i].AttackType == 1)
                     {
                         GameObject instCard = Instantiate(DistanceCardPrefab, Position, Quaternion.identity, CardSpawner.transform);
-                        instCard.GetComponent<Card>().SetData(Hand1[i].Name, Hand1[i].Cost, Hand1[i].MoveCost, Hand1[i].AttackType, Hand1[i].Distance, Hand1[i].Attack, Hand1[i].AttackCost, Hand1[i].Hp, Hand1[i].Armour);
+                        instCard.GetComponent<Card>().SetData(Hand1[i].Character,Hand1[i].Name, Hand1[i].Cost, Hand1[i].MoveCost, Hand1[i].AttackType, Hand1[i].Distance, Hand1[i].Attack, Hand1[i].AttackCost, Hand1[i].Hp, Hand1[i].Armour);
 
                         if (i % 2 == 0)
                         {
@@ -121,7 +121,7 @@ namespace BestGameEver
                     if (Hand2[i].AttackType == 0)
                     {
                         GameObject instCard = Instantiate(MeleeCardPrefab, Position, Quaternion.identity, CardSpawner.transform);
-                        instCard.GetComponent<Card>().SetData(Hand2[i].Name, Hand2[i].Cost, Hand2[i].MoveCost, Hand2[i].AttackType, Hand2[i].Distance, Hand2[i].Attack, Hand2[i].AttackCost, Hand2[i].Hp, Hand2[i].Armour);
+                        instCard.GetComponent<Card>().SetData(Hand2[i].Character,Hand2[i].Name, Hand2[i].Cost, Hand2[i].MoveCost, Hand2[i].AttackType, Hand2[i].Distance, Hand2[i].Attack, Hand2[i].AttackCost, Hand2[i].Hp, Hand2[i].Armour);
 
 
 
@@ -138,7 +138,7 @@ namespace BestGameEver
                     if (Hand2[i].AttackType == 1)
                     {
                         GameObject instCard = Instantiate(DistanceCardPrefab, Position, Quaternion.identity, CardSpawner.transform);
-                        instCard.GetComponent<Card>().SetData(Hand2[i].Name, Hand2[i].Cost, Hand2[i].MoveCost, Hand2[i].AttackType, Hand2[i].Distance, Hand2[i].Attack, Hand2[i].AttackCost, Hand2[i].Hp, Hand2[i].Armour);
+                        instCard.GetComponent<Card>().SetData(Hand2[i].Character,Hand2[i].Name, Hand2[i].Cost, Hand2[i].MoveCost, Hand2[i].AttackType, Hand2[i].Distance, Hand2[i].Attack, Hand2[i].AttackCost, Hand2[i].Hp, Hand2[i].Armour);
 
                         if (i % 2 == 0)
                         {
