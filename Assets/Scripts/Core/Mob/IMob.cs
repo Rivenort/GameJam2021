@@ -28,6 +28,12 @@ namespace BestGameEver
 
         void PerformGoDown(Action callback);
 
+        void PlayAnimWalk(bool val);
+
+        void PlayAnimAttack();
+
+        
+
         int DealDamage(int damage);
 
         int ComputeDamage();

@@ -8,7 +8,7 @@ namespace BestGameEver
     /// <summary>
     /// @author Rivenort
     /// </summary>
-    public class MobMelee : MonoBehaviour, IMob
+    public class Mob : MonoBehaviour, IMob
     {
         private Guid m_id;
         [SerializeField]
@@ -19,6 +19,7 @@ namespace BestGameEver
         private MobStats m_stats;
 
         private MobMotor m_motor;
+        private Animator m_animator;
 
         void Start()
         {
@@ -29,6 +30,9 @@ namespace BestGameEver
             m_motor = GetComponentInChildren<MobMotor>();
             if (m_motor == null)
                 throw new CE_ExpectedElementNotFound("Mob's parent object does not have " + typeof(MobMotor).Name + " element.");
+            m_animator = GetComponentInChildren<Animator>();
+            if (m_animator == null)
+                throw new CE_RequiredObjectNotInitialized("Couldnt find an animator in children of: " + gameObject.name);
         }
 
         public Guid GetId()
@@ -60,7 +64,12 @@ namespace BestGameEver
 
         public void PerformAttack(Action callback)
         {
-            IMob enemy = M_MapManager.SGetMeleeEnemy(m_player, GetRootPosition());
+            IMob enemy = null;
+            if (m_stats.GetAttackType() == AttackType.MELEE)
+                enemy = M_MapManager.SGetEnemyForMelee(m_player, GetRootPosition());
+            else if (m_stats.GetAttackType() == AttackType.RANGE)
+                enemy = M_MapManager.SGetEnemyForRanger(m_player, GetRootPosition());
+
             if (enemy != null)
                 M_MobManager.SDealDamage(this, enemy);
             callback?.Invoke();
@@ -114,6 +123,16 @@ namespace BestGameEver
             if (rand < m_stats.GetHitChance())
                 return m_stats.GetAttack();
             return 0;
+        }
+
+        public void PlayAnimWalk(bool val)
+        {
+            m_animator.SetBool("IsWalking", val);
+        }
+
+        public void PlayAnimAttack()
+        {
+            m_animator.SetTrigger("Shoot");
         }
     }
 

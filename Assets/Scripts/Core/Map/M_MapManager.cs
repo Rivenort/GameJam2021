@@ -263,7 +263,7 @@ namespace BestGameEver
             return null;
         } 
 
-        private IMob GetMeleeEnemy(PlayerType callerType, Vector3 position)
+        private IMob GetEnemyForMelee(PlayerType callerType, Vector3 position)
         {
             Vector3Int cellPos = WorldPosToGridCell(position);
 
@@ -283,11 +283,48 @@ namespace BestGameEver
             return null;
         }
 
-        public static IMob SGetMeleeEnemy(PlayerType callerType, Vector3 position)
+        private IMob GetEnemyForRanger(PlayerType callerType, Vector3 position)
+        {
+            Vector3Int cellPos = WorldPosToGridCell(position);
+            int dir = 1;
+            if (callerType == PlayerType.PLAYER_TWO)
+                dir = -1;
+
+            IMob enemy = null;
+            cellPos.x += dir; // candidate
+
+            while (m_tilemapGrid.GetTile(cellPos) != null && enemy == null)
+            {
+                int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
+                if (index < 0 || index >= m_tiles.Length)
+                    return null;
+
+                Guid mobId = m_tiles[index].GetMob();
+                if (mobId != Guid.Empty)
+                {
+                    // Check if Mob is of the same Player
+                    enemy = M_MobManager.SGetMob(mobId);
+                    if (enemy.GetPlayer() == callerType)
+                        enemy = null;
+                }
+                cellPos.x += dir;
+            }
+            
+            return enemy;
+        }
+
+        public static IMob SGetEnemyForRanger(PlayerType playerType, Vector3 position)
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
-            return s_instance.GetMeleeEnemy(callerType, position);
+            return s_instance.GetEnemyForRanger(playerType, position);
+        }
+
+        public static IMob SGetEnemyForMelee(PlayerType callerType, Vector3 position)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.GetEnemyForMelee(callerType, position);
         }
 
         public void OnMobActionCompleted(IMob mob)

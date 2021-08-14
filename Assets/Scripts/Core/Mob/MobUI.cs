@@ -86,7 +86,7 @@ namespace BestGameEver
             // Check attack availability
             if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
             {
-                IMob enemy = M_MapManager.SGetMeleeEnemy(m_mob.GetPlayer(), m_mob.GetRootPosition());
+                IMob enemy = M_MapManager.SGetEnemyForMelee(m_mob.GetPlayer(), m_mob.GetRootPosition());
                 if (enemy != null)
                 {
                     uiBtnAttack.interactable = true;
@@ -105,6 +105,7 @@ namespace BestGameEver
 
         private void ActionGoRight()
         {
+            m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoRight(OnActionComplete);
             uiTopPanel.gameObject.SetActive(false);
@@ -112,6 +113,7 @@ namespace BestGameEver
 
         private void ActionGoLeft()
         {
+            m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoLeft(OnActionComplete);
             uiTopPanel.gameObject.SetActive(false);
@@ -119,6 +121,7 @@ namespace BestGameEver
 
         private void ActionGoUp()
         {
+            m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoUp(OnActionComplete);
             uiTopPanel.gameObject.SetActive(false);
@@ -126,6 +129,7 @@ namespace BestGameEver
 
         private void ActionGoDown()
         {
+            m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoDown(OnActionComplete);
             uiTopPanel.gameObject.SetActive(false);
@@ -133,6 +137,7 @@ namespace BestGameEver
 
         private void ActionAttack()
         {
+            m_mob.PlayAnimAttack();
             m_actionIsRunning = true;
             m_mob.PerformAttack(OnActionComplete);
             uiTopPanel.gameObject.SetActive(false);
@@ -141,6 +146,7 @@ namespace BestGameEver
         private void OnActionComplete()
         {
             Debug.Log("Action completed.");
+            m_mob.PlayAnimWalk(false);
             m_actionIsRunning = false;
             M_MainManager.SCallOnMobActionCompleted(m_mob);
         }
