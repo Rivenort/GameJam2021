@@ -58,16 +58,16 @@ namespace BestGameEver
             }
         }
 
-        public void MoveLeft(Action callback)
+        public void MoveRight(Action callback)
         {
             m_isMoving = true;
             m_onComplete = callback;
             m_dir = new Vector3(1, 0, 0);
             m_dest = GetDestination(1, 0);
-            Debug.Log("MobMotor -> MoveLeft(): Dest: " + m_dest + " Start: " + gameObject.transform.position + " Dir: " + m_dir);
+            Debug.Log("MobMotor -> MoveRight(): Dest: " + m_dest + " Start: " + gameObject.transform.position + " Dir: " + m_dir);
         }
 
-        public void MoveRight(Action callback)
+        public void MoveLeft(Action callback)
         {
             m_isMoving = true;
             m_onComplete = callback;
@@ -82,7 +82,7 @@ namespace BestGameEver
             m_onComplete = callback;
             m_dir = new Vector3(0, 1, 0);
             m_dest = GetDestination(0, 1);
-            Debug.Log("MobMotor -> MoveLeft(): Dest: " + m_dest + " Start: " + gameObject.transform.position + " Dir: " + m_dir);
+            Debug.Log("MobMotor -> MoveUp(): Dest: " + m_dest + " Start: " + gameObject.transform.position + " Dir: " + m_dir);
         }
 
         public void MoveDown(Action callback)
@@ -91,7 +91,7 @@ namespace BestGameEver
             m_onComplete = callback;
             m_dir = new Vector3(0, -1, 0);
             m_dest = GetDestination(0, -1);
-            Debug.Log("MobMotor -> MoveLeft(): Dest: " + m_dest + " Start: " + gameObject.transform.position + " Dir: " + m_dir);
+            Debug.Log("MobMotor -> MoveDown(): Dest: " + m_dest + " Start: " + gameObject.transform.position + " Dir: " + m_dir);
         }
 
         private Vector3 GetDestination(int cellXOffset, int cellYOffset)

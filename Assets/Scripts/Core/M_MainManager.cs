@@ -16,7 +16,7 @@ namespace BestGameEver
         private List<UT_IDoOnGameStart> m_singOnGameStart = new List<UT_IDoOnGameStart>();
         private List<UT_IClearable> m_singClearable = new List<UT_IClearable>();
         private List<UT_IUpdateable> m_singUpdateable = new List<UT_IUpdateable>();
-
+        private List<UT_IOnMobActionCompleted> m_singOnMobAction = new List<UT_IOnMobActionCompleted>();
 
 
 
@@ -41,6 +41,7 @@ namespace BestGameEver
             m_singOnGameStart.Clear();
             m_singClearable.Clear();
             m_singUpdateable.Clear();
+            m_singOnMobAction.Clear();
 
 
             List<Type> typesDoOnGameStart = UT_Algorithms.GetSingletonsOf("Assembly-CSharp", typeof(UT_IDoOnGameStart));
@@ -63,6 +64,13 @@ namespace BestGameEver
                 object obj = singleton.GetMethod("GetInstance").Invoke(null, null);
                 m_singUpdateable.Add((UT_IUpdateable)obj);
             }
+
+            List<Type> typesOnMobAction = UT_Algorithms.GetSingletonsOf("Assembly-CSharp", typeof(UT_IOnMobActionCompleted));
+            foreach (Type singleton in typesOnMobAction)
+            {
+                object obj = singleton.GetMethod("GetInstance").Invoke(null, null);
+                m_singOnMobAction.Add((UT_IOnMobActionCompleted)obj);
+            }
         }
 
         private void Update()
@@ -80,6 +88,21 @@ namespace BestGameEver
             {
                 clearable.Clear();
             }
+        }
+
+        private void CallOnMobActionCompleted(IMob mob)
+        {
+            foreach (UT_IOnMobActionCompleted singleton in m_singOnMobAction)
+            {
+                singleton.OnMobActionCompleted(mob);
+            }
+        }
+
+        public static void SCallOnMobActionCompleted(IMob mob)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.CallOnMobActionCompleted(mob);
         }
     }
 

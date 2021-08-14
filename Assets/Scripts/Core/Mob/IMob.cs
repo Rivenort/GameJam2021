@@ -14,17 +14,23 @@ namespace BestGameEver
 
         string GetName();
 
+        PlayerType GetPlayer();
+
         void PerformAttack(Action callback);
 
         void PerformAbility(Action callback);
 
-        void PerformGoLeft(Action callback);
-
         void PerformGoRight(Action callback);
+
+        void PerformGoLeft(Action callback);
 
         void PerformGoUp(Action callback);
 
         void PerformGoDown(Action callback);
+
+        int DealDamage(int damage);
+
+        int ComputeDamage();
 
         MobStats GetStats();
 

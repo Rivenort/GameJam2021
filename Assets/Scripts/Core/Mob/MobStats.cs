@@ -28,16 +28,17 @@ namespace BestGameEver
         private int m_costMove;
 
         [SerializeField]
-        private float m_armour;
+        private int m_armour;
 
         [SerializeField]
         private AttackType m_attackType;
 
         [SerializeField]
-        private float m_hitChance;
+        private int m_hitChance;
 
         [SerializeField]
         private int m_range;
+
 
 
         public int GetHp()
@@ -48,6 +49,17 @@ namespace BestGameEver
         public int GetMaxHp()
         {
             return m_maxHp;
+        }
+
+        /// <summary>
+        /// Returns true if died
+        /// </summary>
+        public bool DealDamage(int damage)
+        {
+            m_hp = Mathf.Max(0, m_hp - damage);
+            if (m_hp == 0)
+                return true;
+            return false;
         }
 
         public int GetAttack()
@@ -70,7 +82,7 @@ namespace BestGameEver
             return m_range;
         }
 
-        public float GetArmour()
+        public int GetArmour()
         {
             return m_armour;
         }
@@ -80,7 +92,7 @@ namespace BestGameEver
             return m_attackType;
         }
 
-        public float GetHitChance()
+        public int GetHitChance()
         {
             return m_hitChance;
         }

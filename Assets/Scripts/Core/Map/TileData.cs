@@ -14,6 +14,7 @@ namespace BestGameEver
     {
         private Vector3Int m_position;
         private bool m_isObstacle;
+        private Guid m_mobId;
 
         public TileData(Vector3Int position)
         {
@@ -28,6 +29,16 @@ namespace BestGameEver
         public void SetObstacle(bool val)
         {
             m_isObstacle = val;
+        }
+
+        public void SetMob(Guid mobId)
+        {
+            m_mobId = mobId;
+        }
+
+        public Guid GetMob()
+        {
+            return m_mobId;
         }
 
         public override int GetHashCode()

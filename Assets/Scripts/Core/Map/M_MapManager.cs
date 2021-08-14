@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,14 +9,16 @@ namespace BestGameEver
     /// <summary>
     /// @author Rivenort
     /// </summary>
-    public class M_MapManager : UT_IDoOnGameStart
+    public class M_MapManager : UT_IDoOnGameStart, UT_IOnMobActionCompleted
     {
         private static M_MapManager s_instance = null;
         private static readonly object s_lock = new object();
 
         private const string OBJECTNAME_GRID = "Level/Grid";
         private const string OBJECTNAME_OBSTACLES = "Level/Obstacles";
+        private const string OBJECTNAME_MOBS = "Mobs";
 
+        private Transform m_groupMobs;
         private Tilemap m_tilemapGrid;
         private Tilemap m_tilemapObstacles;
 
@@ -26,6 +29,7 @@ namespace BestGameEver
         {
             m_tilemapGrid = GameObject.Find(OBJECTNAME_GRID).GetComponent<Tilemap>();
             m_tilemapObstacles = GameObject.Find(OBJECTNAME_OBSTACLES).GetComponent<Tilemap>();
+            m_groupMobs = GameObject.Find(OBJECTNAME_MOBS).transform;
         }
 
         public static M_MapManager GetInstance()
@@ -68,6 +72,27 @@ namespace BestGameEver
                     m_tiles[x + y * bounds.size.x] = newTileData;
 
                 }
+            }
+        }
+
+        private void ScanMobs()
+        {
+            foreach (TileData tileData in m_tiles)
+            {
+                tileData.SetMob(Guid.Empty);
+            }
+            foreach (Transform child in m_groupMobs)
+            {
+                IMob mobComp = child.gameObject.GetComponent<IMob>();
+                if (mobComp == null)
+                    continue;
+
+                Vector3Int cell = WorldPosToGridCell(mobComp.GetRootPosition());
+                int index = CellCombinedFromTilemap(cell, m_gridBounds);
+                if (index < 0 || index >= m_tiles.Length)
+                    continue;
+
+                m_tiles[index].SetMob(mobComp.GetId());
             }
         }
 
@@ -177,6 +202,7 @@ namespace BestGameEver
         public void OnGameStart()
         {
             ScanGrid();
+            ScanMobs();
         }
 
         private bool IsAvailable(Vector3 currentPos, Directory directory)
@@ -215,6 +241,58 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             return s_instance.IsAvailable(currentPos, directory);
+        }
+
+
+        /// <summary>
+        /// Assuming caller is Player one 
+        /// </summary>
+        private IMob GetEnemyToTheLeft(Vector3 position)
+        {
+            Vector3Int cellPos = WorldPosToGridCell(position);
+            cellPos.x += 1;
+
+            int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
+            if (index < 0 || index >= m_tiles.Length)
+                return null;
+
+            Guid mobId = m_tiles[index].GetMob();
+            if (mobId != Guid.Empty)
+                return M_MobManager.SGetMob(mobId);
+
+            return null;
+        } 
+
+        private IMob GetMeleeEnemy(PlayerType callerType, Vector3 position)
+        {
+            Vector3Int cellPos = WorldPosToGridCell(position);
+
+            if (callerType == PlayerType.PLAYER_ONE)
+                cellPos.x += 1;
+            else if (callerType == PlayerType.PLAYER_TWO)
+                cellPos.x -= 1;
+
+            int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
+            if (index < 0 || index >= m_tiles.Length)
+                return null;
+
+            Guid mobId = m_tiles[index].GetMob();
+            if (mobId != Guid.Empty)
+                return M_MobManager.SGetMob(mobId);
+
+            return null;
+        }
+
+        public static IMob SGetMeleeEnemy(PlayerType callerType, Vector3 position)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.GetMeleeEnemy(callerType, position);
+        }
+
+        public void OnMobActionCompleted(IMob mob)
+        {
+            ScanMobs();
         }
     }
 
