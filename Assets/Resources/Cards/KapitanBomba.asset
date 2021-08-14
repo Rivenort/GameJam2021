@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123a190a7f2986d42a9fe59b75a2c6fb, type: 3}
+  m_Name: KapitanBomba
+  m_EditorClassIdentifier: 
+  Character: {fileID: 21300000, guid: ffc24e2ab733f5649b74427b89a6dd03, type: 3}
+  Name: Kapitan Bomba
+  Cost: 4
+  Distance: 8
+  MoveCost: 2
+  AttackType: 1
+  Attack: 4
+  AttackCost: 3
+  AttackChance: 90
+  Hp: 4
+  Armour: 20

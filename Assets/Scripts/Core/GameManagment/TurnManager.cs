@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace BestGameEver
 {
     public class TurnManager : MonoBehaviour
     {
+        [SerializeField] TextMeshProUGUI Counter;
+
+        public int ActionPoints=20;
 
         public WinningPointManager winningPointManager;
 
@@ -13,6 +17,17 @@ namespace BestGameEver
         public int Player = 0;
         int _turn;
 
+
+        public bool Action(int Value)
+        {
+            if (Value <= ActionPoints)
+            {
+                ActionPoints -= Value;
+                Counter.text = ActionPoints.ToString();
+                return true;
+            }
+            else { return false; }
+        }
 
         private void Start()
         {
@@ -23,6 +38,9 @@ namespace BestGameEver
 
         public void NextTurn()
         {
+            ActionPoints = 20;
+            Counter.text = ActionPoints.ToString();
+
             if (Player == 1) {Player = 2; }
             else { Player = 1; }
 
@@ -35,6 +53,5 @@ namespace BestGameEver
             winningPointManager.UpdateUI();
             _turn++;
         }
-
     }
 }
