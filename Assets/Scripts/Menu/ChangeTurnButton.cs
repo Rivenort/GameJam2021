@@ -9,6 +9,7 @@ namespace BestGameEver
 	{
 		public Button button;
 		public TurnManager turnManager;
+		public HideCardsButton hideCardsButton;
 
 		void Start()
 		{
@@ -18,7 +19,12 @@ namespace BestGameEver
 
 		void TaskOnClick()
 		{
-			turnManager.NextTurn();
+			if (hideCardsButton.isActiveAndEnabled == false)
+			{
+
+				hideCardsButton.Hide();
+				turnManager.NextTurn();
+			}
 		}
 	}
 }

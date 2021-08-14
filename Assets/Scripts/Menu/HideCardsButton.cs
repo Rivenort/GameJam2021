@@ -24,14 +24,14 @@ namespace BestGameEver{
 		{
 			handManager.HideCards(turnManager.Player);
 			Hide();
-			showCardsButton.Show();
+            showCardsButton.Show();
 		}
 
 		public void Show()
 		{
 			hideButton.SetActive(true);
 		}
-		void Hide()
+		public void Hide()
 		{
 			hideButton.SetActive(false);
 		}
