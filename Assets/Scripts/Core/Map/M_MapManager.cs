@@ -262,8 +262,9 @@ namespace BestGameEver
             return mob;
         }
 
-        private IMob GetEnemyForRanger(PlayerType callerType, Vector3 position)
+        private IMob GetEnemyForRanger(PlayerType callerType, Vector3 position, int range)
         {
+            int checkCount = 0;
             Vector3Int cellPos = WorldPosToGridCell(position);
             int dir = 1;
             if (callerType == PlayerType.PLAYER_TWO)
@@ -272,7 +273,7 @@ namespace BestGameEver
             IMob enemy = null;
             cellPos.x += dir; // candidate
 
-            while (m_tilemapGrid.GetTile(cellPos) != null && enemy == null)
+            while (m_tilemapGrid.GetTile(cellPos) != null && enemy == null && checkCount < range)
             {
 
                 Guid mobId = m_tiles[cellPos].GetMob();
@@ -284,16 +285,17 @@ namespace BestGameEver
                         enemy = null;
                 }
                 cellPos.x += dir;
+                checkCount += 1;
             }
 
             return enemy;
         }
 
-        public static IMob SGetEnemyForRanger(PlayerType playerType, Vector3 position)
+        public static IMob SGetEnemyForRanger(PlayerType playerType, Vector3 position, int range)
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
-            return s_instance.GetEnemyForRanger(playerType, position);
+            return s_instance.GetEnemyForRanger(playerType, position, range);
         }
 
         public static IMob SGetEnemyForMelee(PlayerType callerType, Vector3 position)
@@ -301,6 +303,20 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             return s_instance.GetEnemyForMelee(callerType, position);
+        }
+
+        public static void SSetTileBase(Vector3Int position, TileBase tileBase)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.m_tilemapGrid.SetTile(position, tileBase);
+        }
+
+        public static void SSetTileColor(Vector3Int position, Color color)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.m_tilemapGrid.SetColor(position, color);
         }
 
         public void OnMobActionCompleted(IMob mob)

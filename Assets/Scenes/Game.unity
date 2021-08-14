@@ -2759,6 +2759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1517914399}
   - component: {fileID: 1517914400}
+  - component: {fileID: 1517914401}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -2830,6 +2831,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1517914401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517914398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864325f57d1446a40a710fe44fc7d72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileGridNormal: {fileID: 11400000, guid: 3eece7c7892f78246b1d7ffea7a95c0e, type: 2}
+  tileGridSpecial: {fileID: 11400000, guid: 4294fd326c4396b44b8939b4b6dedea3, type: 2}
 --- !u!4 &1676852889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8604832245644200868, guid: 110082d4d82b208449f704b1086d6248,

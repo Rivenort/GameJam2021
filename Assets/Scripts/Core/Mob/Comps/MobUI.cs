@@ -95,7 +95,7 @@ namespace BestGameEver
             if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
                 enemy = M_MapManager.SGetEnemyForMelee(m_mob.GetPlayer(), m_mob.GetRootPosition());
             if (m_mob.GetStats().GetAttackType() == AttackType.RANGE)
-                enemy = M_MapManager.SGetEnemyForRanger(m_mob.GetPlayer(), m_mob.GetRootPosition());
+                enemy = M_MapManager.SGetEnemyForRanger(m_mob.GetPlayer(), m_mob.GetRootPosition(), m_mob.GetStats().GetRange());
 
             if (enemy != null)
             {
@@ -111,7 +111,11 @@ namespace BestGameEver
 
 
             RefreshStatWidgets();
-            uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
+            HighlightGrid();
+            if (uiTopPanel.gameObject.activeSelf)
+                ClosePanel();
+            else
+                uiTopPanel.gameObject.SetActive(true);
         }
 
         private void RefreshStatWidgets()
@@ -125,7 +129,7 @@ namespace BestGameEver
             m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoRight(OnActionComplete);
-            uiTopPanel.gameObject.SetActive(false);
+            ClosePanel();
         }
 
         private void ActionGoLeft()
@@ -133,7 +137,7 @@ namespace BestGameEver
             m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoLeft(OnActionComplete);
-            uiTopPanel.gameObject.SetActive(false);
+            ClosePanel();
         }
 
         private void ActionGoUp()
@@ -141,7 +145,7 @@ namespace BestGameEver
             m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoUp(OnActionComplete);
-            uiTopPanel.gameObject.SetActive(false);
+            ClosePanel();
         }
 
         private void ActionGoDown()
@@ -149,7 +153,7 @@ namespace BestGameEver
             m_mob.PlayAnimWalk(true);
             m_actionIsRunning = true;
             m_mob.PerformGoDown(OnActionComplete);
-            uiTopPanel.gameObject.SetActive(false);
+            ClosePanel();
         }
 
         private void ActionAttack()
@@ -157,7 +161,7 @@ namespace BestGameEver
             m_mob.PlayAnimAttack();
             m_actionIsRunning = true;
             m_mob.PerformAttack(OnActionComplete);
-            uiTopPanel.gameObject.SetActive(false);
+            ClosePanel();
         }
 
         private void OnActionComplete()
@@ -171,6 +175,34 @@ namespace BestGameEver
         public void ClosePanel()
         {
             uiTopPanel.gameObject.SetActive(false);
+            M_MapHelper.SUnHighlightAll();
+        }
+
+        private void HighlightGrid()
+        {
+            AttackType attackType = m_mob.GetStats().GetAttackType();
+            int dir = 1;
+            if (m_mob.GetPlayer() == PlayerType.PLAYER_TWO)
+                dir = -1;
+
+            if (attackType == AttackType.MELEE)
+            {
+                Vector3Int cellPos = M_MapManager.SWorldPosToGridCell(m_mob.GetRootPosition());
+                cellPos.x += dir;
+                M_MapHelper.SHighligh(cellPos);
+               
+            }
+            if (attackType == AttackType.RANGE)
+            {
+                Vector3Int cellPos = M_MapManager.SWorldPosToGridCell(m_mob.GetRootPosition());
+
+                for (int i = 0; i < m_mob.GetStats().GetRange(); i++)
+                {
+                    Vector3Int tempCell = cellPos;
+                    tempCell.x += ((i + 1) * dir);
+                    M_MapHelper.SHighligh(tempCell);
+                }
+            }
         }
     }
 

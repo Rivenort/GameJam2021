@@ -66,7 +66,7 @@ namespace BestGameEver
             if (m_stats.GetAttackType() == AttackType.MELEE)
                 enemy = M_MapManager.SGetEnemyForMelee(m_player, GetRootPosition());
             else if (m_stats.GetAttackType() == AttackType.RANGE)
-                enemy = M_MapManager.SGetEnemyForRanger(m_player, GetRootPosition());
+                enemy = M_MapManager.SGetEnemyForRanger(m_player, GetRootPosition(), m_stats.GetRange());
 
             if (enemy != null)
                 M_MobManager.SDealDamage(this, enemy);

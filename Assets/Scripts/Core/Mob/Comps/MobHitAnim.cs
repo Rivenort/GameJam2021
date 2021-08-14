@@ -23,7 +23,6 @@ namespace BestGameEver
 
         public void Run(Action callback)
         {
-            Debug.Log("RUN");
             m_onComplete = callback;
             var setup = LeanTween.color(gameObject, toColor, timeIn);
             setup.setOnComplete(PartOut);
