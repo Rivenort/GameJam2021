@@ -44,11 +44,12 @@ namespace BestGameEver
         }
 
 
-        private void ExposeSpawnPoints()
+        private void ExposeSpawnPoints(PlayerType playerType)
         {
             foreach (SpawnPoint spawnPoint in m_spawnPoints)
             {
-                spawnPoint.Expose();
+                if (spawnPoint.GetPlayerType() == playerType)
+                    spawnPoint.Expose();
             }
         }
 
@@ -60,11 +61,11 @@ namespace BestGameEver
             }
         }
 
-        public static void SExposeSpawnPoints()
+        public static void SExposeSpawnPoints(PlayerType playerType)
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
-            s_instance.ExposeSpawnPoints();
+            s_instance.ExposeSpawnPoints(playerType);
         }
 
         public static void SInterruprtExposedSpawns()
