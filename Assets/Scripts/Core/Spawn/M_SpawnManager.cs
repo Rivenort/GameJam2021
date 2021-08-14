@@ -48,10 +48,7 @@ namespace BestGameEver
         {
             foreach (SpawnPoint spawnPoint in m_spawnPoints)
             {
-                UT_ScaleUpDown scaleComp = spawnPoint.GetComponent<UT_ScaleUpDown>();
-                if (scaleComp == null)
-                    return;
-                scaleComp.Run();
+                spawnPoint.Expose();
             }
         }
 
@@ -59,10 +56,7 @@ namespace BestGameEver
         {
             foreach (SpawnPoint spawnPoint in m_spawnPoints)
             {
-                UT_ScaleUpDown scaleComp = spawnPoint.GetComponent<UT_ScaleUpDown>();
-                if (scaleComp == null)
-                    return;
-                scaleComp.Interrupt();
+                spawnPoint.DisableExspose();
             }
         }
 

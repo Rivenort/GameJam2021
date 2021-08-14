@@ -17,7 +17,7 @@ namespace BestGameEver
         private List<UT_IClearable> m_singClearable = new List<UT_IClearable>();
         private List<UT_IUpdateable> m_singUpdateable = new List<UT_IUpdateable>();
         private List<UT_IOnMobActionCompleted> m_singOnMobAction = new List<UT_IOnMobActionCompleted>();
-
+        private List<UT_IOnMobCreated> m_singOnMobCreated = new List<UT_IOnMobCreated>();
 
 
         void Awake()
@@ -71,10 +71,22 @@ namespace BestGameEver
                 object obj = singleton.GetMethod("GetInstance").Invoke(null, null);
                 m_singOnMobAction.Add((UT_IOnMobActionCompleted)obj);
             }
+
+            List<Type> typesOnMobCreated = UT_Algorithms.GetSingletonsOf("Assembly-CSharp", typeof(UT_IOnMobCreated));
+            foreach (Type singleton in typesOnMobCreated)
+            {
+                object obj = singleton.GetMethod("GetInstance").Invoke(null, null);
+                m_singOnMobCreated.Add((UT_IOnMobCreated)obj);
+            }
+
         }
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                M_SpawnManager.SExposeSpawnPoints();
+            }
             foreach (UT_IUpdateable updateable in m_singUpdateable)
             {
                 updateable.Update();
@@ -103,6 +115,21 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             s_instance.CallOnMobActionCompleted(mob);
+        }
+
+        private void CallOnMobCreated(IMob mob)
+        {
+            foreach (var singleton in m_singOnMobCreated)
+            {
+                singleton.OnMobCreated(mob);
+            }
+        }
+
+        public static void SCallOnMobCreated(IMob mob)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.CallOnMobCreated(mob);
         }
     }
 

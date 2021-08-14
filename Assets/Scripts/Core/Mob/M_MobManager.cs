@@ -79,6 +79,13 @@ namespace BestGameEver
             s_instance.DealDamage(attacker, defender);
         }
 
+        public static Transform SGetMobGroup()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.m_groupMobs;
+        }
+
         public void Clear()
         {
             m_mobs.Clear();

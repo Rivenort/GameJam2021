@@ -11,7 +11,8 @@ namespace BestGameEver
     {
 
         public Vector3 scaleTo;
-        public float scaleTime;
+        public float scaleTimeTo;
+        public float scaleTimeDown;
         private Vector3 m_originScale;
         private bool m_interrupted = false;
 
@@ -24,7 +25,7 @@ namespace BestGameEver
         {
             m_interrupted = false;
             m_originScale = gameObject.transform.localScale;
-            var setup = LeanTween.scale(gameObject, scaleTo, scaleTime);
+            var setup = LeanTween.scale(gameObject, scaleTo, scaleTimeTo);
             setup.setOnComplete(OnPartOne);
         }
 
@@ -35,7 +36,7 @@ namespace BestGameEver
 
         void OnPartOne()
         {
-            var setup = LeanTween.scale(gameObject, m_originScale, scaleTime);
+            var setup = LeanTween.scale(gameObject, m_originScale, scaleTimeDown);
             setup.setOnComplete(OnPartTwo);
         }
 
@@ -43,7 +44,7 @@ namespace BestGameEver
         {
             if (m_interrupted)
                 return;
-            var setup = LeanTween.scale(gameObject, scaleTo, scaleTime);
+            var setup = LeanTween.scale(gameObject, scaleTo, scaleTimeTo);
             setup.setOnComplete(OnPartOne);
         }
 

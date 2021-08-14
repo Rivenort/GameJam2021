@@ -13,8 +13,6 @@ namespace BestGameEver
         private Guid m_id;
         [SerializeField]
         PlayerType m_player;
-        [SerializeField]
-        private string m_name;
         [SerializeReference]
         private MobStats m_stats;
 
@@ -44,7 +42,7 @@ namespace BestGameEver
 
         public string GetName()
         {
-            return m_name;
+            return gameObject.name;
         }
 
         public MobStats GetStats()
@@ -137,6 +135,13 @@ namespace BestGameEver
         public void PlayAnimAttack()
         {
             m_animator.SetTrigger("Shoot");
+        }
+
+        public Vector3 GetRootLocalPos()
+        {
+            if (m_motor == null)
+                m_motor = GetComponentInChildren<MobMotor>();
+            return m_motor.transform.localPosition;
         }
     }
 

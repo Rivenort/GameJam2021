@@ -41,5 +41,7 @@ namespace BestGameEver
         MobStats GetStats();
 
         Vector3 GetRootPosition();
+
+        Vector3 GetRootLocalPos();
     }
 }

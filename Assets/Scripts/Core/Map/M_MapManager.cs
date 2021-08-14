@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,7 +10,10 @@ namespace BestGameEver
     /// <summary>
     /// @author Rivenort
     /// </summary>
-    public class M_MapManager : UT_IDoOnGameStart, UT_IOnMobActionCompleted, UT_IClearable
+    public class M_MapManager : UT_IDoOnGameStart,
+                                UT_IOnMobActionCompleted,
+                                UT_IClearable,
+                                UT_IOnMobCreated
     {
         private static M_MapManager s_instance = null;
         private static readonly object s_lock = new object();
@@ -22,7 +26,7 @@ namespace BestGameEver
         private Tilemap m_tilemapGrid;
         private Tilemap m_tilemapObstacles;
 
-        private TileData[] m_tiles;
+        private Dictionary<Vector3Int, TileData> m_tiles = new Dictionary<Vector3Int, TileData>();
         private BoundsInt m_gridBounds;
 
         private M_MapManager()
@@ -51,7 +55,6 @@ namespace BestGameEver
 
             TileBase[] allTiles = m_tilemapGrid.GetTilesBlock(bounds);
 
-            m_tiles = new TileData[bounds.size.x * bounds.size.y];
             m_gridBounds = bounds;
 
             for (int x = 0; x < bounds.size.x; x++)
@@ -69,7 +72,7 @@ namespace BestGameEver
                     TileData newTileData = new TileData(cellPos);
       
 
-                    m_tiles[x + y * bounds.size.x] = newTileData;
+                    m_tiles.Add(cellPos, newTileData);
 
                 }
             }
@@ -77,9 +80,11 @@ namespace BestGameEver
 
         private void ScanMobs()
         {
-            foreach (TileData tileData in m_tiles)
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("Scanning mobs: ");
+            foreach (var tileData in m_tiles)
             {
-                tileData.SetMob(Guid.Empty);
+                tileData.Value.SetMob(Guid.Empty);
             }
             foreach (Transform child in m_groupMobs)
             {
@@ -88,12 +93,11 @@ namespace BestGameEver
                     continue;
 
                 Vector3Int cell = WorldPosToGridCell(mobComp.GetRootPosition());
-                int index = CellCombinedFromTilemap(cell, m_gridBounds);
-                if (index < 0 || index >= m_tiles.Length)
-                    continue;
 
-                m_tiles[index].SetMob(mobComp.GetId());
+                m_tiles[cell].SetMob(mobComp.GetId());
+                stringBuilder.Append("\nIMob: " + mobComp.GetName() + " Id: " + mobComp.GetId() + " Pos: " + mobComp.GetRootPosition());
             }
+            Debug.Log(stringBuilder);
         }
 
         private Vector3 GridCellToWorldPos(Vector3Int cellPos)
@@ -129,24 +133,12 @@ namespace BestGameEver
 
         private bool IsObstacle(Vector3Int pos)
         {
-            int index = CellCombinedFromTilemap(pos, m_gridBounds);
-            if (index >= 0 && index < m_tiles.Length)
-            {
-                return m_tiles[index].IsObstacle();
-            }
-            Debug.LogWarning("Something went wrong with index retrieving. Check!");
-            return false;
+            return m_tiles[pos].IsObstacle();
         }
 
         private void SetObstacle(Vector3Int pos, bool val)
         {
-            int index = CellCombinedFromTilemap(pos, m_gridBounds);
-            if (index >= 0 && index < m_tiles.Length)
-            {
-                m_tiles[index].SetObstacle(val);
-                return;
-            }
-            Debug.LogWarning("Something went wrong with index retrieving. Check!");
+            m_tiles[pos].SetObstacle(val);
         }
 
         public static void SSetObstacle(Vector3Int pos, bool val)
@@ -208,13 +200,14 @@ namespace BestGameEver
         private bool IsAvailable(Vector3 currentPos, Directory directory)
         {
             Vector3Int cellPos = WorldPosToGridCell(currentPos);
+
             switch (directory)
             {
                 case Directory.LEFT:
-                    cellPos.x += 1;
+                    cellPos.x -= 1;
                     break;
                 case Directory.RIGHT:
-                    cellPos.x -= 1;
+                    cellPos.x += 1;
                     break;
                 case Directory.UP:
                     cellPos.y += 1;
@@ -224,14 +217,13 @@ namespace BestGameEver
                     break;
             }
 
+
+
             if (m_tilemapGrid.GetTile(cellPos) == null)
                 return false;
-            int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
-            
-            if (index < 0 || index >= m_tiles.Length)
-                return false;
 
-            if (m_tiles[index].IsObstacle())
+            TileData tileData = m_tiles[cellPos];
+            if (tileData.IsObstacle() || tileData.GetMob() != Guid.Empty)
                 return false;
             return true;
         }
@@ -244,24 +236,6 @@ namespace BestGameEver
         }
 
 
-        /// <summary>
-        /// Assuming caller is Player one 
-        /// </summary>
-        private IMob GetEnemyToTheLeft(Vector3 position)
-        {
-            Vector3Int cellPos = WorldPosToGridCell(position);
-            cellPos.x += 1;
-
-            int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
-            if (index < 0 || index >= m_tiles.Length)
-                return null;
-
-            Guid mobId = m_tiles[index].GetMob();
-            if (mobId != Guid.Empty)
-                return M_MobManager.SGetMob(mobId);
-
-            return null;
-        } 
 
         private IMob GetEnemyForMelee(PlayerType callerType, Vector3 position)
         {
@@ -272,11 +246,9 @@ namespace BestGameEver
             else if (callerType == PlayerType.PLAYER_TWO)
                 cellPos.x -= 1;
 
-            int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
-            if (index < 0 || index >= m_tiles.Length)
-                return null;
 
-            Guid mobId = m_tiles[index].GetMob();
+
+            Guid mobId = m_tiles[cellPos].GetMob();
             if (mobId != Guid.Empty)
                 return M_MobManager.SGetMob(mobId);
 
@@ -295,11 +267,8 @@ namespace BestGameEver
 
             while (m_tilemapGrid.GetTile(cellPos) != null && enemy == null)
             {
-                int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
-                if (index < 0 || index >= m_tiles.Length)
-                    return null;
 
-                Guid mobId = m_tiles[index].GetMob();
+                Guid mobId = m_tiles[cellPos].GetMob();
                 if (mobId != Guid.Empty)
                 {
                     // Check if Mob is of the same Player
@@ -335,6 +304,11 @@ namespace BestGameEver
         public void Clear()
         {
             
+        }
+
+        public void OnMobCreated(IMob mob)
+        {
+            ScanMobs();
         }
     }
 
