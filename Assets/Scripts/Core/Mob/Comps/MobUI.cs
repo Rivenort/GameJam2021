@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ namespace BestGameEver
         public Button uiBtnGoUp;
         public Button uiBtnGoDown;
         public Button uiBtnAttack;
+        public TMP_Text uiTextHealth;
+        public TMP_Text uiTextAttack;
 
         private bool m_actionIsRunning = false;
 
@@ -29,7 +32,9 @@ namespace BestGameEver
                 uiBtnGoLeft == null ||
                 uiBtnGoUp == null ||
                 uiBtnGoDown == null ||
-                uiBtnAttack == null)
+                uiBtnAttack == null ||
+                uiTextAttack == null ||
+                uiTextHealth == null)
                 throw new CE_ComponentNotFullyInitialized();
             m_mob = GetComponentInParent<IMob>();
             if (m_mob == null)
@@ -98,9 +103,16 @@ namespace BestGameEver
                 }
                 else
                     uiBtnAttack.interactable = false;
-            } 
+            }
 
+            RefreshStatWidgets();
             uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
+        }
+
+        private void RefreshStatWidgets()
+        {
+            uiTextHealth.text = m_mob.GetStats().GetHp().ToString();
+            uiTextAttack.text = m_mob.GetStats().GetAttack().ToString();
         }
 
         private void ActionGoRight()

@@ -47,6 +47,9 @@ TagManager:
   - name: Grid
     uniqueID: 2678495373
     locked: 0
+  - name: Spawns
+    uniqueID: 3142538849
+    locked: 0
   - name: Mobs
     uniqueID: 3230966103
     locked: 0

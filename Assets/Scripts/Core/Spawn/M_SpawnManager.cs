@@ -1,0 +1,89 @@
+﻿
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace BestGameEver
+{
+    /// <summary>
+    /// @author Rivenort
+    /// </summary>
+    public class M_SpawnManager : UT_IDoOnGameStart, UT_IClearable
+    {
+        private static M_SpawnManager s_instance = null;
+        private static readonly object s_lock = new object();
+
+        private const string OBJECTNAME_SPAWNS = "Spawns";
+        private Transform m_groupSpawns = null;
+
+        private List<SpawnPoint> m_spawnPoints = new List<SpawnPoint>();
+
+        private M_SpawnManager()
+        {
+            m_groupSpawns = GameObject.Find(OBJECTNAME_SPAWNS).transform;
+        }
+
+        public static M_SpawnManager GetInstance()
+        {
+            lock (s_lock)
+            {
+                if (s_instance == null)
+                    s_instance = new M_SpawnManager();
+                return s_instance;
+            }
+        }
+
+        public void OnGameStart()
+        {
+            foreach (Transform child in m_groupSpawns)
+            {
+                SpawnPoint spawn = child.gameObject.GetComponent<SpawnPoint>();
+                if (spawn != null)
+                    m_spawnPoints.Add(spawn);
+            }
+        }
+
+
+        private void ExposeSpawnPoints()
+        {
+            foreach (SpawnPoint spawnPoint in m_spawnPoints)
+            {
+                UT_ScaleUpDown scaleComp = spawnPoint.GetComponent<UT_ScaleUpDown>();
+                if (scaleComp == null)
+                    return;
+                scaleComp.Run();
+            }
+        }
+
+        private void InterruptExposedSpawns()
+        {
+            foreach (SpawnPoint spawnPoint in m_spawnPoints)
+            {
+                UT_ScaleUpDown scaleComp = spawnPoint.GetComponent<UT_ScaleUpDown>();
+                if (scaleComp == null)
+                    return;
+                scaleComp.Interrupt();
+            }
+        }
+
+        public static void SExposeSpawnPoints()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.ExposeSpawnPoints();
+        }
+
+        public static void SInterruprtExposedSpawns()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.InterruptExposedSpawns();
+        }
+
+        public void Clear()
+        {
+            m_groupSpawns.Clear();
+        }
+    }
+
+}

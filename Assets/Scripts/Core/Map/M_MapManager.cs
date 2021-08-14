@@ -9,7 +9,7 @@ namespace BestGameEver
     /// <summary>
     /// @author Rivenort
     /// </summary>
-    public class M_MapManager : UT_IDoOnGameStart, UT_IOnMobActionCompleted
+    public class M_MapManager : UT_IDoOnGameStart, UT_IOnMobActionCompleted, UT_IClearable
     {
         private static M_MapManager s_instance = null;
         private static readonly object s_lock = new object();
@@ -330,6 +330,11 @@ namespace BestGameEver
         public void OnMobActionCompleted(IMob mob)
         {
             ScanMobs();
+        }
+
+        public void Clear()
+        {
+            
         }
     }
 

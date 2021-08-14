@@ -8,7 +8,7 @@ namespace BestGameEver
     /// <summary>
     /// @author Rivenort
     /// </summary>
-    public class M_MobManager : UT_IDoOnGameStart
+    public class M_MobManager : UT_IDoOnGameStart, UT_IClearable
     {
         private static M_MobManager s_instance = null;
         private static readonly object s_lock = new object();
@@ -77,6 +77,11 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             s_instance.DealDamage(attacker, defender);
+        }
+
+        public void Clear()
+        {
+            m_mobs.Clear();
         }
     }
 

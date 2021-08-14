@@ -114,6 +114,10 @@ namespace BestGameEver
                 return 0;
 
             m_stats.DealDamage(damage);
+            MobHitAnim hitAnim = GetComponent<MobHitAnim>();
+            if (hitAnim != null)
+                hitAnim.Run(() => { });
+
             return damage;
         }
 
