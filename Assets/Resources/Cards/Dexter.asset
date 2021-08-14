@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 123a190a7f2986d42a9fe59b75a2c6fb, type: 3}
-  m_Name: Patrick
+  m_Name: Dexter
   m_EditorClassIdentifier: 
-  Character: {fileID: 21300000, guid: 3c3fc29f61a4ca24083ee3e0c5d033cb, type: 3}
-  Name: Patrick
-  Cost: 2
+  Character: {fileID: 0}
+  Name: Dexter
+  Cost: 0
   Distance: 0
-  MoveCost: 2
-  AttackType: 1
-  Attack: 2
-  AttackCost: 2
-  AttackChance: 70
-  Hp: 3
+  MoveCost: 0
+  AttackType: 0
+  Attack: 0
+  AttackCost: 0
+  AttackChance: 0
+  Hp: 0
   Armour: 0
