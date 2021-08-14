@@ -18,6 +18,8 @@ namespace BestGameEver
         private List<UT_IUpdateable> m_singUpdateable = new List<UT_IUpdateable>();
 
 
+
+
         void Awake()
         {
 
@@ -26,6 +28,11 @@ namespace BestGameEver
             s_instance = this;
 
             ScanSingletons();
+
+            foreach (UT_IDoOnGameStart onGameStart in m_singOnGameStart)
+            {
+                onGameStart.OnGameStart();
+            }
         }
 
         private void ScanSingletons()
@@ -57,8 +64,23 @@ namespace BestGameEver
                 m_singUpdateable.Add((UT_IUpdateable)obj);
             }
         }
-   
 
+        private void Update()
+        {
+            foreach (UT_IUpdateable updateable in m_singUpdateable)
+            {
+                updateable.Update();
+            }
+        }
+
+        private void Clear()
+        {
+
+            foreach (UT_IClearable clearable in m_singClearable)
+            {
+                clearable.Clear();
+            }
+        }
     }
 
 }

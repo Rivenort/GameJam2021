@@ -16,11 +16,15 @@ namespace BestGameEver
         [SerializeReference]
         private MobStats m_stats;
 
+        private MobMotor m_motor;
 
         void Start()
         {
             if (m_id == Guid.Empty)
                 m_id = Guid.NewGuid();
+            m_motor = GetComponentInChildren<MobMotor>();
+            if (m_motor == null)
+                throw new CE_ExpectedElementNotFound("Mob's parent object does not have " + typeof(MobMotor).Name + " element.");
         }
 
         public Guid GetId()
@@ -55,22 +59,22 @@ namespace BestGameEver
 
         public void PerformGoDown(Action callback)
         {
-
+            m_motor.MoveDown(callback);
         }
 
         public void PerformGoLeft(Action callback)
         {
-
+            m_motor.MoveLeft(callback);
         }
 
         public void PerformGoRight(Action callback)
         {
-
+            m_motor.MoveRight(callback);
         }
 
         public void PerformGoUp(Action callback)
         {
-
+            m_motor.MoveUp(callback);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BestGameEver
 {
@@ -11,16 +12,80 @@ namespace BestGameEver
     {
         public GameObject uiTopPanel;
 
+        public Button uiBtnGoLeft;
+        public Button uiBtnGoRight;
+        public Button uiBtnGoUp;
+        public Button uiBtnGoDown;
+
+        private bool m_actionIsRunning = false;
+
+        private IMob m_mob = null;
+
         void Start()
         {
-            if (uiTopPanel == null)
+            if (uiTopPanel == null ||
+                uiBtnGoLeft == null ||
+                uiBtnGoRight == null ||
+                uiBtnGoUp == null ||
+                uiBtnGoDown == null)
                 throw new CE_ComponentNotFullyInitialized();
+            m_mob = GetComponentInParent<IMob>();
+            if (m_mob == null)
+                throw new CE_ExpectedElementNotFound("Component: " + typeof(IMob).Name + " was not found in the parent obj!");
+            SetupButtons();
         }
 
 
+        private void SetupButtons()
+        {
+            uiBtnGoLeft.onClick.RemoveAllListeners();
+            uiBtnGoRight.onClick.RemoveAllListeners();
+            uiBtnGoUp.onClick.RemoveAllListeners();
+            uiBtnGoDown.onClick.RemoveAllListeners();
+            uiBtnGoLeft.onClick.AddListener(ActionGoLeft);
+            uiBtnGoRight.onClick.AddListener(ActionGoRight);
+            uiBtnGoUp.onClick.AddListener(ActionGoUp);
+            uiBtnGoDown.onClick.AddListener(ActionGoDown);
+        }
+
         public void OnMobClick()
         {
-            uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
+            if (!m_actionIsRunning)
+                uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
+        }
+
+        private void ActionGoLeft()
+        {
+            m_mob.PerformGoLeft(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
+        }
+
+        private void ActionGoRight()
+        {
+            m_mob.PerformGoRight(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
+        }
+
+        private void ActionGoUp()
+        {
+            m_mob.PerformGoUp(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
+        }
+
+        private void ActionGoDown()
+        {
+            m_mob.PerformGoDown(OnActionComplete);
+            uiTopPanel.gameObject.SetActive(false);
+            m_actionIsRunning = true;
+        }
+
+        private void OnActionComplete()
+        {
+            Debug.Log("Action completed.");
+            m_actionIsRunning = false;
         }
     }
 

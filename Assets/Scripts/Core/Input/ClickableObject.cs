@@ -35,14 +35,12 @@ namespace BestGameEver
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log("PointerDown");
             m_lastObject = this.gameObject;
             m_lastPos = eventData.position;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            Debug.Log("PointerUp");
             if (SystemInfo.deviceType == DeviceType.Desktop)
             {
                 if (m_lastObject == gameObject)
