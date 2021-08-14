@@ -17,10 +17,10 @@ namespace BestGameEver
 
         private void Start()
         {
-            Count1 = 0;
-            Count2=0;
             Shuffle(1);
             Shuffle(2);
+            Count1 = 0;
+            Count2=0;
         }
 
         public CardTemplate DrawCard(int j)
