@@ -8,7 +8,7 @@ namespace BestGameEver
     /// <summary>
     /// @author Rivenort
     /// </summary>
-    public class M_MobManager : UT_IDoOnGameStart, UT_IClearable
+    public class M_MobManager : UT_IDoOnGameStart, UT_IClearable, UT_IOnMobCreated
     {
         private static M_MobManager s_instance = null;
         private static readonly object s_lock = new object();
@@ -94,7 +94,7 @@ namespace BestGameEver
 
         private void SetChoosenMob(IMob mob)
         {
-            if (m_choosedMob != null)
+            if (m_choosedMob != null && !m_choosedMob.GetId().Equals(mob.GetId()))
                 m_choosedMob.CloseUI();
             m_choosedMob = mob;
         }
@@ -104,6 +104,11 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             s_instance.SetChoosenMob(mob);
+        }
+
+        public void OnMobCreated(IMob mob)
+        {
+            m_mobs.Add(mob.GetId(), mob);
         }
     }
 

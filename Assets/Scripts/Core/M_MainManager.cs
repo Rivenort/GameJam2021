@@ -18,7 +18,7 @@ namespace BestGameEver
         private List<UT_IUpdateable> m_singUpdateable = new List<UT_IUpdateable>();
         private List<UT_IOnMobActionCompleted> m_singOnMobAction = new List<UT_IOnMobActionCompleted>();
         private List<UT_IOnMobCreated> m_singOnMobCreated = new List<UT_IOnMobCreated>();
-
+        private List<UT_IOnMobDestroyed> m_singOnMobDestroyed = new List<UT_IOnMobDestroyed>();
 
         void Awake()
         {
@@ -42,6 +42,8 @@ namespace BestGameEver
             m_singClearable.Clear();
             m_singUpdateable.Clear();
             m_singOnMobAction.Clear();
+            m_singOnMobCreated.Clear();
+            m_singOnMobDestroyed.Clear();
 
 
             List<Type> typesDoOnGameStart = UT_Algorithms.GetSingletonsOf("Assembly-CSharp", typeof(UT_IDoOnGameStart));
@@ -79,6 +81,12 @@ namespace BestGameEver
                 m_singOnMobCreated.Add((UT_IOnMobCreated)obj);
             }
 
+            List<Type> typesOnMobDestroyed = UT_Algorithms.GetSingletonsOf("Assembly-CSharp", typeof(UT_IOnMobDestroyed));
+            foreach (Type singleton in typesOnMobDestroyed)
+            {
+                object obj = singleton.GetMethod("GetInstance").Invoke(null, null);
+                m_singOnMobDestroyed.Add((UT_IOnMobDestroyed)obj);
+            }
         }
 
         private void Update()
@@ -130,6 +138,21 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             s_instance.CallOnMobCreated(mob);
+        }
+
+        private void CallOnMobDestroyed(Guid mobId)
+        {
+            foreach (var singleton in m_singOnMobDestroyed)
+            {
+                singleton.OnMobDestroyed(mobId);
+            }
+        }
+
+        public static void SCallOnMobDestroyed(Guid mobId)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.CallOnMobDestroyed(mobId);
         }
     }
 

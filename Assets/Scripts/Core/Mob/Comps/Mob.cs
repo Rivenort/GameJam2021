@@ -116,7 +116,22 @@ namespace BestGameEver
             if (hitAnim != null)
                 hitAnim.Run(() => { });
 
+            if (m_stats.GetHp() == 0)
+            {
+                var compDie = GetComponent<MobDieAnim>();
+
+
+                M_MobDieHelper.SPlayAnimOn(gameObject.transform.position);
+                compDie.Run(OnDieCallback);
+            }
+
             return damage;
+        }
+
+        private void OnDieCallback()
+        {
+            GameObject.Destroy(gameObject);
+            M_MainManager.SCallOnMobDestroyed(m_id);
         }
 
         public int ComputeDamage()
