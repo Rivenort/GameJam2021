@@ -9,6 +9,7 @@ namespace BestGameEver{
 		public ShowCardsButton showCardsButton;
 		public GameObject hideButton;
 
+		public TurnManager turnManager;
 		public HandManager handManager;
 		public Button button;
 
@@ -21,7 +22,7 @@ namespace BestGameEver{
 
 		void TaskOnClick()
 		{
-			handManager.HideCards();
+			handManager.HideCards(turnManager.Player);
 			Hide();
 			showCardsButton.Show();
 		}

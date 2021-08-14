@@ -7,6 +7,8 @@ namespace BestGameEver
 {
 	public class ShowCardsButton : MonoBehaviour
 	{
+		public TurnManager turnManager;
+
 		public HideCardsButton hideCardsButton;
 
 		public GameObject gameObject;
@@ -22,21 +24,38 @@ namespace BestGameEver
 
 		void TaskOnClick()
 		{
-			if (handManager.CardCount != 0)
+			if (turnManager.Player==1)
 			{
-				handManager.ShowCards();
-				Hide();
-				hideCardsButton.Show();
+				if (handManager.CardCount1 != 0)
+				{
+					handManager.ShowCards(1);
+					Hide();
+					hideCardsButton.Show();
+				}
+				else
+				{
+					print("you have no CARDS!!!");
+				}
 			}
-            else
-            {
-                print( "you have no CARDS!!!");
-            }
+			if (turnManager.Player == 2)
+			{
+				if (handManager.CardCount2 != 0)
+				{
+					handManager.ShowCards(2);
+					Hide();
+					hideCardsButton.Show();
+				}
+				else
+				{
+					print("you have no CARDS!!!");
+				}
+			}
 		}
 		public void Show()
         {
 			gameObject.SetActive(true);
 		}
+
 		void Hide()
         {
 			gameObject.SetActive(false);

@@ -7,43 +7,77 @@ namespace BestGameEver
 {
     public class CardsManager : MonoBehaviour
     {
-        public CardTemplate[] Deck;
+        public CardTemplate[] Deck1;
+        public CardTemplate[] Deck2;
+
         private CardTemplate tempGO;
 
-        int Count;
+        int Count1;
+        int Count2;
 
         private void Start()
         {
-            Count = 0;
-            Shuffle();
+            Count1 = 0;
+            Count2=0;
+            Shuffle(1);
+            Shuffle(2);
         }
 
-        public CardTemplate DrawCard()
+        public CardTemplate DrawCard(int j)
         {
-            CardTemplate temp = Deck[Count];
-            Count++;
-            if(Count == Deck.Length)
+            CardTemplate temp;
+
+            if (j == 1)
             {
-                Shuffle();
-                Count = 0;
+
+                temp = Deck1[Count1];
+                Count1++;
+                if (Count1 == Deck1.Length)
+                {
+                    Shuffle(1);
+                    Count1 = 0;
+                }
             }
+
+           else
+            {
+
+                temp = Deck2[Count2];
+                Count2++;
+                if (Count2 == Deck2.Length)
+                {
+                    Shuffle(2);
+                    Count2 = 0;
+                }
+            }
+
             return temp;
         }
-        
-        void Test()
+
+
+        public void Shuffle(int j)
         {
-            for (int i = 0 ; i < Deck.Length; i++){
-                print(Deck[i].Name);
-            }
-        }
-        public void Shuffle()
-        {
-            for (int i = 0; i < Deck.Length; i++)
+            if (j == 1)
             {
-                int rnd = Random.Range(0, Deck.Length);
-                tempGO = Deck[rnd];
-                Deck[rnd] = Deck[i];
-                Deck[i] = tempGO;
+
+                for (int i = 0; i < Deck1.Length; i++)
+                {
+                    int rnd = Random.Range(0, Deck1.Length);
+                    tempGO = Deck1[rnd];
+                    Deck1[rnd] = Deck1[i];
+                    Deck1[i] = tempGO;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Deck2.Length; i++)
+                {
+                    int rnd = Random.Range(0, Deck2.Length);
+                    tempGO = Deck2[rnd];
+                    Deck2[rnd] = Deck2[i];
+                    Deck2[i] = tempGO;
+                }
+
             }
         }
     }

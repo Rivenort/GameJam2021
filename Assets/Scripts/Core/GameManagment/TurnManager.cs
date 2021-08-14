@@ -2,20 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnManager : MonoBehaviour
+namespace BestGameEver
 {
-    int Player;
-
-
-
-    private void Start()
+    public class TurnManager : MonoBehaviour
     {
-        Player = 1;
-    }
-    
-    public void NextTurn()
-    {
-        if (Player == 1) Player = 2;
-        if (Player == 2) Player = 1;
+
+        public HandManager handManager;
+        public int Player = 0;
+        int _turn;
+
+
+        private void Start()
+        {
+            _turn = 0;
+            Player = 1;
+        }
+
+        public void NextTurn()
+        {
+            _turn++;
+            if (Player == 1) Player = 2;
+            if (Player == 2) { Player = 1;}
+            if (_turn > 1 ^ _turn % 2 == 1)
+            {
+                handManager.AddNewCard(1);
+                handManager.AddNewCard(2);
+            }
+        }
     }
 }
