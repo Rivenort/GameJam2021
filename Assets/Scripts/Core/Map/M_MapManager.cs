@@ -178,6 +178,44 @@ namespace BestGameEver
         {
             ScanGrid();
         }
+
+        private bool IsAvailable(Vector3 currentPos, Directory directory)
+        {
+            Vector3Int cellPos = WorldPosToGridCell(currentPos);
+            switch (directory)
+            {
+                case Directory.LEFT:
+                    cellPos.x += 1;
+                    break;
+                case Directory.RIGHT:
+                    cellPos.x -= 1;
+                    break;
+                case Directory.UP:
+                    cellPos.y += 1;
+                    break;
+                case Directory.DOWN:
+                    cellPos.y -= 1;
+                    break;
+            }
+
+            if (m_tilemapGrid.GetTile(cellPos) == null)
+                return false;
+            int index = CellCombinedFromTilemap(cellPos, m_gridBounds);
+            
+            if (index < 0 || index >= m_tiles.Length)
+                return false;
+
+            if (m_tiles[index].IsObstacle())
+                return false;
+            return true;
+        }
+
+        public static bool SIsAvailable(Vector3 currentPos, Directory directory)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.IsAvailable(currentPos, directory);
+        }
     }
 
 }

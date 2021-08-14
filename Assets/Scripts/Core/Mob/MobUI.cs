@@ -50,8 +50,31 @@ namespace BestGameEver
 
         public void OnMobClick()
         {
-            if (!m_actionIsRunning)
-                uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
+            if (m_actionIsRunning)
+                return;
+
+            // Check movement availability, then disable buttons
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.LEFT))
+                uiBtnGoLeft.interactable = true;
+            else
+                uiBtnGoLeft.interactable = false;
+
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.RIGHT))
+                uiBtnGoRight.interactable = true;
+            else
+                uiBtnGoRight.interactable = false;
+
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.UP))
+                uiBtnGoUp.interactable = true;
+            else
+                uiBtnGoUp.interactable = false;
+
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.DOWN))
+                uiBtnGoDown.interactable = true;
+            else
+                uiBtnGoDown.interactable = false;
+
+            uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
         }
 
         private void ActionGoLeft()

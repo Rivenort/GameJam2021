@@ -28,6 +28,6 @@ namespace BestGameEver
 
         MobStats GetStats();
 
-
+        Vector3 GetRootPosition();
     }
 }

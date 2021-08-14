@@ -77,8 +77,10 @@ namespace BestGameEver
             m_motor.MoveUp(callback);
         }
 
-
-
+        public Vector3 GetRootPosition()
+        {
+            return m_motor.gameObject.transform.position;
+        }
     }
 
 }
