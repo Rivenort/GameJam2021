@@ -44,6 +44,9 @@ TagManager:
   - name: Map
     uniqueID: 2864797775
     locked: 0
+  - name: Grid
+    uniqueID: 2678495373
+    locked: 0
   - name: Mobs
     uniqueID: 3230966103
     locked: 0
