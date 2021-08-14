@@ -46,6 +46,7 @@ namespace BestGameEver
 
         private void ExposeSpawnPoints(PlayerType playerType)
         {
+            M_MobManager.SDisableUI();
             foreach (SpawnPoint spawnPoint in m_spawnPoints)
             {
                 if (spawnPoint.GetPlayerType() == playerType)
@@ -55,6 +56,7 @@ namespace BestGameEver
 
         private void InterruptExposedSpawns()
         {
+            M_MobManager.SEnableUI();
             foreach (SpawnPoint spawnPoint in m_spawnPoints)
             {
                 spawnPoint.DisableExspose();

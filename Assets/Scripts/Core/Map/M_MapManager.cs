@@ -58,6 +58,7 @@ namespace BestGameEver
 
             m_gridBounds = bounds;
 
+            
             for (int x = 0; x < bounds.size.x; x++)
             {
                 for (int y = 0; y < bounds.size.y; y++)
@@ -248,6 +249,8 @@ namespace BestGameEver
                 cellPos.x -= 1;
 
 
+            if (!m_tiles.ContainsKey(cellPos))
+                return null;
 
             Guid mobId = m_tiles[cellPos].GetMob();
             IMob mob = null;
@@ -275,6 +278,8 @@ namespace BestGameEver
 
             while (m_tilemapGrid.GetTile(cellPos) != null && enemy == null && checkCount < range)
             {
+                if (!m_tiles.ContainsKey(cellPos))
+                    return enemy;
 
                 Guid mobId = m_tiles[cellPos].GetMob();
                 if (mobId != Guid.Empty)
@@ -309,14 +314,16 @@ namespace BestGameEver
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
-            s_instance.m_tilemapGrid.SetTile(position, tileBase);
+            if (s_instance.m_tiles.ContainsKey(position))
+                s_instance.m_tilemapGrid.SetTile(position, tileBase);
         }
 
         public static void SSetTileColor(Vector3Int position, Color color)
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
-            s_instance.m_tilemapGrid.SetColor(position, color);
+            if (s_instance.m_tiles.ContainsKey(position))
+                s_instance.m_tilemapGrid.SetColor(position, color);
         }
 
         public void OnMobActionCompleted(IMob mob)

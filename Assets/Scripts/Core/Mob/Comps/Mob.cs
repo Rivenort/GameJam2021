@@ -149,7 +149,7 @@ namespace BestGameEver
 
         public void PlayAnimAttack()
         {
-            m_animator.SetTrigger("Shoot");
+            m_animator.SetTrigger("Fight");
         }
 
         public Vector3 GetRootLocalPos()
@@ -162,6 +162,16 @@ namespace BestGameEver
         public void CloseUI()
         {
             GetComponentInChildren<MobUI>().ClosePanel();
+        }
+
+        public void DisableUI()
+        {
+            GetComponentInChildren<MobUI>().DisableUI();
+        }
+
+        public void EnableUI()
+        {
+            GetComponentInChildren<MobUI>().EnableUI();
         }
     }
 

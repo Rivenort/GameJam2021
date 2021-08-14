@@ -34,6 +34,10 @@ namespace BestGameEver
 
         void CloseUI();
 
+        void DisableUI();
+
+        void EnableUI();
+
         int DealDamage(int damage);
 
         int ComputeDamage();

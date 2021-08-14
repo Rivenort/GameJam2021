@@ -110,6 +110,31 @@ namespace BestGameEver
         {
             m_mobs.Add(mob.GetId(), mob);
         }
+
+        private void SetDisableUI(bool val)
+        {
+            foreach (var mob in m_mobs)
+            {
+                if (val)
+                    mob.Value.DisableUI();
+                else
+                    mob.Value.EnableUI();
+            }
+        }
+
+        public static void SDisableUI()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.SetDisableUI(true);
+        }
+
+        public static void SEnableUI()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.SetDisableUI(false);
+        }
     }
 
 }

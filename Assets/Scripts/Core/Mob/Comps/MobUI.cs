@@ -22,6 +22,7 @@ namespace BestGameEver
         public TMP_Text uiTextAttack;
 
         private bool m_actionIsRunning = false;
+        private bool m_disabled = false;
 
         private IMob m_mob = null;
 
@@ -61,6 +62,8 @@ namespace BestGameEver
 
         public void OnMobClick()
         {
+            if (m_disabled)
+                return;
             if (m_actionIsRunning)
             {
                 Debug.Log("Action is running..");
@@ -203,6 +206,16 @@ namespace BestGameEver
                     M_MapHelper.SHighligh(tempCell);
                 }
             }
+        }
+
+        public void DisableUI()
+        {
+            m_disabled = true;
+        }
+
+        public void EnableUI()
+        {
+            m_disabled = false;
         }
     }
 
