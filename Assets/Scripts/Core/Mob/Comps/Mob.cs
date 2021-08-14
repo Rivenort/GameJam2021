@@ -143,6 +143,11 @@ namespace BestGameEver
                 m_motor = GetComponentInChildren<MobMotor>();
             return m_motor.transform.localPosition;
         }
+
+        public void CloseUI()
+        {
+            GetComponentInChildren<MobUI>().ClosePanel();
+        }
     }
 
 }

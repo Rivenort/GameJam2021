@@ -249,10 +249,16 @@ namespace BestGameEver
 
 
             Guid mobId = m_tiles[cellPos].GetMob();
+            IMob mob = null;
             if (mobId != Guid.Empty)
-                return M_MobManager.SGetMob(mobId);
+                mob = M_MobManager.SGetMob(mobId);
 
-            return null;
+            if (mob == null)
+                return null;
+
+            if (mob.GetPlayer() == callerType)
+                return null;
+            return mob;
         }
 
         private IMob GetEnemyForRanger(PlayerType callerType, Vector3 position)
@@ -278,7 +284,7 @@ namespace BestGameEver
                 }
                 cellPos.x += dir;
             }
-            
+
             return enemy;
         }
 

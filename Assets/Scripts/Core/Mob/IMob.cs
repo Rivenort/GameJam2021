@@ -32,7 +32,7 @@ namespace BestGameEver
 
         void PlayAnimAttack();
 
-        
+        void CloseUI();
 
         int DealDamage(int damage);
 

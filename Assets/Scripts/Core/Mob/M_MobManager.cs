@@ -17,6 +17,7 @@ namespace BestGameEver
         private Transform m_groupMobs = null;
 
         private Dictionary<Guid, IMob> m_mobs;
+        private IMob m_choosedMob;
 
         private M_MobManager()
         {
@@ -89,6 +90,20 @@ namespace BestGameEver
         public void Clear()
         {
             m_mobs.Clear();
+        }
+
+        private void SetChoosenMob(IMob mob)
+        {
+            if (m_choosedMob != null)
+                m_choosedMob.CloseUI();
+            m_choosedMob = mob;
+        }
+
+        public static void SSetChoosenMob(IMob mob) 
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.SetChoosenMob(mob);
         }
     }
 

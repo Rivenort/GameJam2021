@@ -67,6 +67,8 @@ namespace BestGameEver
                 return;
             }
 
+            M_MobManager.SSetChoosenMob(m_mob);
+
             // Check movement availability, then disable buttons
             if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.RIGHT))
                 uiBtnGoRight.interactable = true;
@@ -89,21 +91,24 @@ namespace BestGameEver
                 uiBtnGoDown.interactable = false;
 
             // Check attack availability
+            IMob enemy = null;
             if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
-            {
-                IMob enemy = M_MapManager.SGetEnemyForMelee(m_mob.GetPlayer(), m_mob.GetRootPosition());
-                if (enemy != null)
-                {
-                    uiBtnAttack.interactable = true;
+                enemy = M_MapManager.SGetEnemyForMelee(m_mob.GetPlayer(), m_mob.GetRootPosition());
+            if (m_mob.GetStats().GetAttackType() == AttackType.RANGE)
+                enemy = M_MapManager.SGetEnemyForRanger(m_mob.GetPlayer(), m_mob.GetRootPosition());
 
-                    if (m_mob.GetPlayer() == PlayerType.PLAYER_ONE)
-                        uiBtnGoRight.interactable = false;
-                    else if (m_mob.GetPlayer() == PlayerType.PLAYER_TWO)
-                        uiBtnGoLeft.interactable = false;
-                }
-                else
-                    uiBtnAttack.interactable = false;
+            if (enemy != null)
+            {
+                uiBtnAttack.interactable = true;
+
+                if (m_mob.GetPlayer() == PlayerType.PLAYER_ONE)
+                    uiBtnGoRight.interactable = false;
+                else if (m_mob.GetPlayer() == PlayerType.PLAYER_TWO)
+                    uiBtnGoLeft.interactable = false;
             }
+            else
+                uiBtnAttack.interactable = false;
+
 
             RefreshStatWidgets();
             uiTopPanel.gameObject.SetActive(!uiTopPanel.gameObject.activeSelf);
@@ -161,6 +166,11 @@ namespace BestGameEver
             m_mob.PlayAnimWalk(false);
             m_actionIsRunning = false;
             M_MainManager.SCallOnMobActionCompleted(m_mob);
+        }
+
+        public void ClosePanel()
+        {
+            uiTopPanel.gameObject.SetActive(false);
         }
     }
 
