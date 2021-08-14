@@ -43,7 +43,6 @@ namespace BestGameEver
 
             if (j == 2)
             {
-                print("asd");
                 if (CardCount2 < 8)
                 {
                     for (int i = 0; i < 8; i++)
@@ -122,7 +121,6 @@ namespace BestGameEver
                     {
                         GameObject instCard = Instantiate(MeleeCardPrefab, Position, Quaternion.identity, CardSpawner.transform);
                         instCard.GetComponent<Card>().SetData(Hand2[i].Character,Hand2[i].Name, Hand2[i].Cost, Hand2[i].MoveCost, Hand2[i].AttackType, Hand2[i].Distance, Hand2[i].Attack, Hand2[i].AttackCost, Hand2[i].Hp, Hand2[i].Armour);
-
 
 
                         if (i % 2 == 0)

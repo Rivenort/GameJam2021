@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 123a190a7f2986d42a9fe59b75a2c6fb, type: 3}
-  m_Name: BoBBudowniczy
+  m_Name: Kemrit
   m_EditorClassIdentifier: 
-  Character: {fileID: 21300000, guid: d0492fe118e7bdb45bc4d424d18e2d6b, type: 3}
-  Name: Bob
+  Character: {fileID: 21300000, guid: 8eb497676114f8241a2ff3bf7cf778dc, type: 3}
+  Name: Kemrit
   Cost: 3
-  Distance: 0
-  MoveCost: 1
-  AttackType: 0
-  Attack: 1
-  AttackCost: 2
-  AttackChance: 0
+  Distance: 20
+  MoveCost: 3
+  AttackType: 1
+  Attack: 4
+  AttackCost: 3
+  AttackChance: 56
   Hp: 2
-  Armour: 15
+  Armour: 0
