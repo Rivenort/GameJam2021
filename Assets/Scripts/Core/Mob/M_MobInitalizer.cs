@@ -16,7 +16,9 @@ namespace BestGameEver
 
         private Dictionary<string, GameObject> m_mobsDict;
         [SerializeField]
-        private string m_defaultPrefab;
+        private string m_defaultPrefabP1;
+        [SerializeField]
+        private string m_defaultPrefabP2;
 
         private void Start()
         {
@@ -48,12 +50,8 @@ namespace BestGameEver
             IMob mob = obj.GetComponent<IMob>();
             obj.transform.SetParent(M_MobManager.SGetMobGroup());
 
-            float yDiff = spawn.transform.position.y - mob.GetRootLocalPos().y;
-            Debug.Log("DIFF: " + yDiff);
-            Vector3 newPos = spawn.transform.position;
-            newPos.y = newPos.y + yDiff;
 
-            obj.transform.position = newPos;
+            obj.transform.position = spawn.transform.position;
 
             M_MainManager.SCallOnMobCreated(mob);
 
@@ -67,13 +65,33 @@ namespace BestGameEver
             return s_instance.Init(name, spawn);
         }
 
-        public static GameObject SInit(SpawnPoint spawn)
+        public static GameObject SInitP1(SpawnPoint spawn)
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
-            return s_instance.Init(s_instance.m_defaultPrefab, spawn);
+            return s_instance.Init(s_instance.m_defaultPrefabP1, spawn);
         }
 
+        public static GameObject SInitP2(SpawnPoint spawn)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.Init(s_instance.m_defaultPrefabP2, spawn);
+        }
+
+        public static void SSetP1Default(string prefabName)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.m_defaultPrefabP1 = prefabName;
+        }
+
+        public static void SSetP2Default(string prefabName)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.m_defaultPrefabP2 = prefabName;
+        }
     }
 
 }
