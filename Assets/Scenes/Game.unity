@@ -1081,7 +1081,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: 1
-  m_name: P2-JohnyBravo
   m_stats:
     id: 0
   references:
@@ -5885,7 +5884,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: 0
-  m_name: P1-JohnyBravo
   m_stats:
     id: 0
   references:
@@ -5966,7 +5964,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_player: 0
-  m_name: P1-JohnyBravo
   m_stats:
     id: 0
   references:
