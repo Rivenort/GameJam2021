@@ -540,6 +540,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4997ffa057bcd4d4ab7dc6c76cf2adff, type: 2}
   - {fileID: 11400000, guid: 6dcc0aff9e3b8df4fab3d4a033dd3bf7, type: 2}
   - {fileID: 11400000, guid: 008801236fe601d4c8a4dd20a0f0e111, type: 2}
+  handManager: {fileID: 1010100678}
 --- !u!4 &745417087
 Transform:
   m_ObjectHideFlags: 0

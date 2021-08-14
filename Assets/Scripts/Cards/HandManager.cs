@@ -23,16 +23,6 @@ namespace BestGameEver
         [SerializeField]
         public GameObject CardSpawner;
 
-        void Start()
-        {
-            AddNewCard(1);
-            AddNewCard(1);
-
-            AddNewCard(2);
-            AddNewCard(2);
-
-        }
-
         public void AddNewCard(int j)
         {
             if (j == 1)

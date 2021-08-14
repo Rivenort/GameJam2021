@@ -10,6 +10,8 @@ namespace BestGameEver
         public CardTemplate[] Deck1;
         public CardTemplate[] Deck2;
 
+        public HandManager handManager;
+
         private CardTemplate tempGO;
 
         int Count1;
@@ -19,6 +21,14 @@ namespace BestGameEver
         {
             Shuffle(1);
             Shuffle(2);
+
+            handManager.AddNewCard(1);
+            handManager.AddNewCard(1);
+
+            handManager.AddNewCard(2);
+            handManager.AddNewCard(2);
+
+
             Count1 = 0;
             Count2=0;
         }
