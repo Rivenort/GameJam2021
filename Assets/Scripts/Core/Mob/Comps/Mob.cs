@@ -62,6 +62,32 @@ namespace BestGameEver
 
         public void PerformAttack(Action callback)
         {
+            // Special for Panoramix (no time left to do this better)
+
+            Panoramix panoramix = GetComponent<Panoramix>();
+            if (panoramix != null)
+            {
+                IMob ally = M_MapManager.SGetAllyForRanger(m_player, GetRootPosition(), GetStats().GetRange());
+                if (ally != null)
+                {
+                    ally.Heal();
+                }
+
+                switch (m_player)
+                {
+                    case PlayerType.PLAYER_ONE:
+                        M_GamePlayManager.SAddToPlayer1Points(-m_stats.GetCostAttack());
+                        break;
+                    case PlayerType.PLAYER_TWO:
+                        M_GamePlayManager.SAddToPlayer2Points(-m_stats.GetCostAttack());
+                        break;
+                }
+                callback?.Invoke();
+                return;
+            }
+            //
+
+
             IMob enemy = null;
             if (m_stats.GetAttackType() == AttackType.MELEE)
                 enemy = M_MapManager.SGetEnemyForMelee(m_player, GetRootPosition());
@@ -243,6 +269,11 @@ namespace BestGameEver
             m_stats.SetCostAttack(cardData.AttackCost);
             m_stats.SetRange(cardData.Distance);
             m_stats.SetHitChance(cardData.AttackChance);
+        }
+
+        public void Heal()
+        {
+            m_stats.SetHp(m_stats.GetMaxHp());
         }
     }
 

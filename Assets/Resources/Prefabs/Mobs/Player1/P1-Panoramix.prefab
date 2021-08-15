@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7542071290411996782}
   - component: {fileID: 7542071290411996783}
   - component: {fileID: -2876949309374652520}
+  - component: {fileID: 3249478712262124760}
   m_Layer: 0
   m_Name: P1-Panoramix
   m_TagString: Untagged
@@ -102,6 +103,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 6dcc0aff9e3b8df4fab3d4a033dd3bf7, type: 2}
+--- !u!114 &3249478712262124760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7542071290411996779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5322a2ca483002743a2650eeb1371f0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7542071290787407453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,6 +1147,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3908357193525283477, guid: 57a37c101475cf04b9d9eddb331bcdd0,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3908357193525283477, guid: 57a37c101475cf04b9d9eddb331bcdd0,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3908357193525283477, guid: 57a37c101475cf04b9d9eddb331bcdd0,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3908357193525283477, guid: 57a37c101475cf04b9d9eddb331bcdd0,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a37c101475cf04b9d9eddb331bcdd0, type: 3}
 --- !u!224 &6816083453838559625 stripped
@@ -1270,6 +1303,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AttackPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019630208399608275, guid: 3bd9d81cb3bfb5640bc0f61ea4c473fe,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019630208399608275, guid: 3bd9d81cb3bfb5640bc0f61ea4c473fe,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019630208399608275, guid: 3bd9d81cb3bfb5640bc0f61ea4c473fe,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019630208399608275, guid: 3bd9d81cb3bfb5640bc0f61ea4c473fe,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bd9d81cb3bfb5640bc0f61ea4c473fe, type: 3}

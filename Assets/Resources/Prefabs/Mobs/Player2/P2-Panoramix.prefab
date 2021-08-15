@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 4203899346163080871}
   - component: {fileID: 4203899346163080873}
   - component: {fileID: 1589385170220612037}
+  - component: {fileID: 1155140065489128246}
   m_Layer: 0
   m_Name: P2-Panoramix
   m_TagString: Untagged
@@ -373,6 +374,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 6dcc0aff9e3b8df4fab3d4a033dd3bf7, type: 2}
+--- !u!114 &1155140065489128246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4203899346163080869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5322a2ca483002743a2650eeb1371f0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4203899346290070064
 GameObject:
   m_ObjectHideFlags: 0

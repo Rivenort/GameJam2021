@@ -296,6 +296,44 @@ namespace BestGameEver
             return enemy;
         }
 
+        private IMob GetAllyForARange(PlayerType callerType, Vector3 position, int range)
+        {
+            int checkCount = 0;
+            Vector3Int cellPos = WorldPosToGridCell(position);
+            int dir = 1;
+            if (callerType == PlayerType.PLAYER_TWO)
+                dir = -1;
+
+            IMob ally = null;
+            cellPos.x += dir; // candidate
+
+            while (m_tilemapGrid.GetTile(cellPos) != null && ally == null && checkCount < range)
+            {
+                if (!m_tiles.ContainsKey(cellPos))
+                    return ally;
+
+                Guid mobId = m_tiles[cellPos].GetMob();
+                if (mobId != Guid.Empty)
+                {
+                    // Check if Mob is of the same Player
+                    ally = M_MobManager.SGetMob(mobId);
+                    if (ally.GetPlayer() != callerType)
+                        ally = null;
+                }
+                cellPos.x += dir;
+                checkCount += 1;
+            }
+
+            return ally;
+        }
+
+        public static IMob SGetAllyForRanger(PlayerType playerType, Vector3 position, int range)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.GetAllyForARange(playerType, position, range);
+        }
+
         public static IMob SGetEnemyForRanger(PlayerType playerType, Vector3 position, int range)
         {
             if (s_instance == null)

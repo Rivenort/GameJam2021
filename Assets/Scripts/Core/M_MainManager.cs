@@ -108,6 +108,11 @@ namespace BestGameEver
             {
                 updateable.Update();
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
         }
 
         private void Clear()

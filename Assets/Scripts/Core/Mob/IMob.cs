@@ -40,6 +40,8 @@ namespace BestGameEver
 
         int DealDamage(int damage);
 
+        void Heal();
+
         int ComputeDamage();
 
         void SetStats(CardTemplate cardData);
