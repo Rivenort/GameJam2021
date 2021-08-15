@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ca5b17251d106964ea35a741864090cc
+guid: e9b29e61021e3c343abdedfff4e1860b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3967031380806080704
-    second: Dystans_0
+      213: 2890031112230210945
+    second: Tlo karty_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -114,13 +114,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dystans_0
+      name: Tlo karty_0
       rect:
         serializedVersion: 2
-        x: 460
-        y: 122
-        width: 1163
-        height: 1826
+        x: 119
+        y: 0
+        width: 1804
+        height: 217
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c816c9c50abd0730800000000000000
-      internalID: 3967031380806080704
+      spriteID: 18d0f4a0cf37b1820800000000000000
+      internalID: 2890031112230210945
       vertices: []
       indices: 
       edges: []

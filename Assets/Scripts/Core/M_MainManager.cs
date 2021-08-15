@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace BestGameEver
 {
+
     /// <summary>
     /// [Component Singleton]
     /// @author Rivenort
@@ -19,6 +20,9 @@ namespace BestGameEver
         private List<UT_IOnMobActionCompleted> m_singOnMobAction = new List<UT_IOnMobActionCompleted>();
         private List<UT_IOnMobCreated> m_singOnMobCreated = new List<UT_IOnMobCreated>();
         private List<UT_IOnMobDestroyed> m_singOnMobDestroyed = new List<UT_IOnMobDestroyed>();
+
+        private PlayerType m_currentTurn = PlayerType.PLAYER_ONE;
+
 
         void Awake()
         {
@@ -158,6 +162,7 @@ namespace BestGameEver
                 throw new CE_SingletonNotInitialized();
             s_instance.CallOnMobDestroyed(mobId);
         }
+
     }
 
 }

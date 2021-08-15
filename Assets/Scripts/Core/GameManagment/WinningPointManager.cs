@@ -38,14 +38,14 @@ namespace BestGameEver
         {
             if (turnManager.Player == 1)
             {
-                Light1.SetActive(true);
-                Light2.SetActive(false);
+                //Light1.SetActive(true);
+                //Light2.SetActive(false);
             }
 
             if (turnManager.Player == 2)
             {
-                Light1.SetActive(false);
-                Light2.SetActive(true);
+                //Light1.SetActive(false);
+                //Light2.SetActive(true);
             }
 
             Bar1.transform.localScale = new Vector3(0.0f, Points1 / MaxPoints1,0.0f);

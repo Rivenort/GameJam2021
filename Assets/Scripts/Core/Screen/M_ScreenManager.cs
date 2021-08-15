@@ -82,7 +82,7 @@ namespace BestGameEver
                 }
                 m_currentScreen = screen;
                 m_currentScreen.SetActive(true);
-                backButton.SetActive(true);
+                //backButton.SetActive(true);
 
                 //M_EventsManager.SPublishEvent(new EventBlockCamera());
                 //M_EventsManager.SPublishEvent(new EventScreenEnabled(m_currentScreen));
@@ -118,7 +118,7 @@ namespace BestGameEver
             else
             {
                 m_currentScreen = null;
-                backButton.SetActive(false);
+                //backButton.SetActive(false);
             }
             if (m_currentScreen == null)
             {

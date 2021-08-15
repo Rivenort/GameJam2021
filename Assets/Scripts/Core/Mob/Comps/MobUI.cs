@@ -104,10 +104,13 @@ namespace BestGameEver
             {
                 uiBtnAttack.interactable = true;
 
-                if (m_mob.GetPlayer() == PlayerType.PLAYER_ONE)
-                    uiBtnGoRight.interactable = false;
-                else if (m_mob.GetPlayer() == PlayerType.PLAYER_TWO)
-                    uiBtnGoLeft.interactable = false;
+                if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
+                {
+                    if (m_mob.GetPlayer() == PlayerType.PLAYER_ONE)
+                        uiBtnGoRight.interactable = false;
+                    else if (m_mob.GetPlayer() == PlayerType.PLAYER_TWO)
+                        uiBtnGoLeft.interactable = false;
+                }
             }
             else
                 uiBtnAttack.interactable = false;
