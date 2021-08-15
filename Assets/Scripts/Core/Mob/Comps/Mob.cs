@@ -208,17 +208,29 @@ namespace BestGameEver
 
         public void CloseUI()
         {
-            GetComponentInChildren<MobUI>().ClosePanel();
+            try
+            {
+                GetComponentInChildren<MobUI>().ClosePanel();
+            }
+            catch (Exception e) { }
         }
 
         public void DisableUI()
         {
-            GetComponentInChildren<MobUI>().DisableUI();
+            try
+            {
+                GetComponentInChildren<MobUI>().DisableUI();
+            }
+            catch (Exception e) { }
         }
 
         public void EnableUI()
         {
-            GetComponentInChildren<MobUI>().EnableUI();
+            try
+            {
+                GetComponentInChildren<MobUI>().EnableUI();
+            }
+            catch (Exception e) { }
         }
     }
 
