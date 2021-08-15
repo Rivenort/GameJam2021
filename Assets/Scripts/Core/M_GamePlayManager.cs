@@ -29,7 +29,7 @@ namespace BestGameEver
 
         private int m_player1Points = 30;
         private int m_player2Points = 30;
-        private int m_pointsOnNewTurn = 3;
+        private int m_pointsOnNewTurn = 10;
 
         private M_GamePlayManager()
         {

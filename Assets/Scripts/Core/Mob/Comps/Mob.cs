@@ -232,6 +232,18 @@ namespace BestGameEver
             }
             catch (Exception e) { }
         }
+
+        public void SetStats(CardTemplate cardData)
+        {
+            m_stats.SetHp(cardData.Hp);
+            m_stats.SetAttack(cardData.Attack);
+            m_stats.SetArmour(cardData.Armour);
+            m_stats.SetAttackType(cardData.AttackType == 0 ? AttackType.MELEE : AttackType.RANGE);
+            m_stats.SetCostMove(cardData.MoveCost);
+            m_stats.SetCostAttack(cardData.AttackCost);
+            m_stats.SetRange(cardData.Distance);
+            m_stats.SetHitChance(cardData.AttackChance);
+        }
     }
 
 }

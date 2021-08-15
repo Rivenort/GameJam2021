@@ -144,7 +144,7 @@ Animator:
   m_GameObject: {fileID: 4203899345795212599}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 89283ae24d8803b46b5a4af9a7349a83, type: 2}
+  m_Controller: {fileID: 9100000, guid: 97fb0ebe9c5f0024e815c6f25a57e196, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 4203899346163080870}
   - component: {fileID: 4203899346163080871}
   - component: {fileID: 4203899346163080873}
+  - component: {fileID: 4538234738163342523}
   m_Layer: 0
   m_Name: P2-Patrick
   m_TagString: Untagged
@@ -359,6 +360,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 1
+--- !u!114 &4538234738163342523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4203899346163080869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5c6d1fcd2ecb24f869d1aef77ca31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 008801236fe601d4c8a4dd20a0f0e111, type: 2}
 --- !u!1 &4203899346290070064
 GameObject:
   m_ObjectHideFlags: 0

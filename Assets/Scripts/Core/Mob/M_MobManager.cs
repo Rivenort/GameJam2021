@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace BestGameEver
 {
+
+    public delegate void OnAllPlayerMobsDestroyed(PlayerType player);
     /// <summary>
     /// @author Rivenort
     /// </summary>
-    public class M_MobManager : UT_IDoOnGameStart, UT_IClearable, UT_IOnMobCreated
+    public class M_MobManager : UT_IDoOnGameStart, UT_IClearable, UT_IOnMobCreated, UT_IOnMobDestroyed
     {
         private static M_MobManager s_instance = null;
         private static readonly object s_lock = new object();
@@ -18,6 +20,8 @@ namespace BestGameEver
 
         private Dictionary<Guid, IMob> m_mobs;
         private IMob m_choosedMob;
+
+        private event OnAllPlayerMobsDestroyed m_eventAllPlayerMobsDestroyed;
 
         private M_MobManager()
         {
@@ -45,6 +49,13 @@ namespace BestGameEver
                     continue;
                 m_mobs.Add(mobComp.GetId(), mobComp);
             }
+        }
+
+        public static void SAddListener_OnAllPlayerMobsDestroyed(OnAllPlayerMobsDestroyed func)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.m_eventAllPlayerMobsDestroyed += func;
         }
 
         public void OnGameStart()
@@ -170,6 +181,36 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             s_instance.SetDisableUI(false);
+        }
+
+        public void OnMobDestroyed(Guid mobId)
+        {
+            if (m_mobs.ContainsKey(mobId))
+            {
+                m_mobs.Remove(mobId);
+            }
+
+            int player1Mobs = 0;
+            int player2Mobs = 0;
+            // check if players has mobs
+            foreach (var mob in m_mobs)
+            {
+                if (mob.Value.GetPlayer() == PlayerType.PLAYER_ONE)
+                    player1Mobs++;
+                if (mob.Value.GetPlayer() == PlayerType.PLAYER_TWO)
+                    player2Mobs++;
+            }
+
+            if (player1Mobs == 0)
+            {
+                M_MainManager.SCallOnAllMobsDestroyed(PlayerType.PLAYER_ONE);
+                m_eventAllPlayerMobsDestroyed?.Invoke(PlayerType.PLAYER_ONE);
+            }
+            else if (player2Mobs == 0)
+            {
+                M_MainManager.SCallOnAllMobsDestroyed(PlayerType.PLAYER_TWO);
+                m_eventAllPlayerMobsDestroyed?.Invoke(PlayerType.PLAYER_TWO);
+            }
         }
     }
 

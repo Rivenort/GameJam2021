@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WelcomeToMyCave
+namespace BestGameEver
 {
     /// <summary>
     /// @author Rivenort

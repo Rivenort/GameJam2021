@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 4203899346163080870}
   - component: {fileID: 4203899346163080871}
   - component: {fileID: 4203899346163080873}
+  - component: {fileID: 5602358634026670938}
   m_Layer: 0
   m_Name: P2-BobBudowniczy
   m_TagString: Untagged
@@ -359,6 +360,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 1
+--- !u!114 &5602358634026670938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4203899346163080869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5c6d1fcd2ecb24f869d1aef77ca31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 6bd20f90a4296ad4c8fabb6043c33a14, type: 2}
 --- !u!1 &4203899346290070064
 GameObject:
   m_ObjectHideFlags: 0

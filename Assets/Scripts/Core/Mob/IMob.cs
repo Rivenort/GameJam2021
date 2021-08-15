@@ -42,6 +42,8 @@ namespace BestGameEver
 
         int ComputeDamage();
 
+        void SetStats(CardTemplate cardData);
+
         MobStats GetStats();
 
         Vector3 GetRootPosition();

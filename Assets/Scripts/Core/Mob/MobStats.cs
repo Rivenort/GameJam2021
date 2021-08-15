@@ -40,6 +40,47 @@ namespace BestGameEver
         private int m_range;
 
 
+        public void SetHp(int hp)
+        {
+            m_hp = hp;
+            m_maxHp = hp;
+        }
+
+        public void SetAttack(int attack)
+        {
+            m_attack = attack;
+        }
+
+        public void SetAttackType(AttackType attackType)
+        {
+            m_attackType = attackType;
+        }
+
+        public void SetCostAttack(int cost)
+        {
+            m_costAttack = cost;
+        }
+
+        public void SetCostMove(int cost)
+        {
+            m_costMove = cost;
+        }
+
+        public void SetArmour(int armour)
+        {
+            m_armour = armour;
+        }
+
+        public void SetHitChance(int hitChance)
+        {
+            m_hitChance = hitChance;
+        }
+
+        public void SetRange(int range)
+        {
+            m_range = range;
+        }
+
 
         public int GetHp()
         {

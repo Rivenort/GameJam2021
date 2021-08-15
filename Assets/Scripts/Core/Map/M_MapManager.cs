@@ -343,6 +343,14 @@ namespace BestGameEver
 
         public void OnMobDestroyed(Guid mobId)
         {
+            foreach (var tile in m_tiles)
+            {
+                if (tile.Value.GetMob().Equals(mobId))
+                {
+                    tile.Value.SetMob(Guid.Empty);
+                    break;
+                }
+            }
             ScanMobs();
         }
     }

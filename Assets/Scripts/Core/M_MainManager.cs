@@ -20,6 +20,8 @@ namespace BestGameEver
         private List<UT_IOnMobActionCompleted> m_singOnMobAction = new List<UT_IOnMobActionCompleted>();
         private List<UT_IOnMobCreated> m_singOnMobCreated = new List<UT_IOnMobCreated>();
         private List<UT_IOnMobDestroyed> m_singOnMobDestroyed = new List<UT_IOnMobDestroyed>();
+        private List<UT_IOnAllMobsDestroyed> m_singAllMobsDestroyed = new List<UT_IOnAllMobsDestroyed>();
+        
 
         private PlayerType m_currentTurn = PlayerType.PLAYER_ONE;
 
@@ -91,6 +93,13 @@ namespace BestGameEver
                 object obj = singleton.GetMethod("GetInstance").Invoke(null, null);
                 m_singOnMobDestroyed.Add((UT_IOnMobDestroyed)obj);
             }
+
+            List<Type> typesOnAllMobsDestroyed = UT_Algorithms.GetSingletonsOf("Assembly-CSharp", typeof(UT_IOnAllMobsDestroyed));
+            foreach (Type singleton in typesOnAllMobsDestroyed)
+            {
+                object obj = singleton.GetMethod("GetInstance").Invoke(null, null);
+                m_singAllMobsDestroyed.Add((UT_IOnAllMobsDestroyed)obj);
+            }
         }
 
         private void Update()
@@ -131,6 +140,21 @@ namespace BestGameEver
             {
                 singleton.OnMobCreated(mob);
             }
+        }
+
+        private void CallOnAllMobsDestroyed(PlayerType playerWithNoMobs)
+        {
+            foreach (var singleton in m_singAllMobsDestroyed)
+            {
+                singleton.OnAllMobsDestroyed(playerWithNoMobs);
+            }
+        }
+
+        public static void SCallOnAllMobsDestroyed(PlayerType playerWithNoMobs)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.CallOnAllMobsDestroyed(playerWithNoMobs);
         }
 
         public static void SCallOnMobCreated(IMob mob)
