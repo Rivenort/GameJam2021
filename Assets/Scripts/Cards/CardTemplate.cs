@@ -18,5 +18,7 @@ namespace BestGameEver
         public int AttackChance;
         public int Hp;
         public int Armour;
+        public string prefabNameP1;
+        public string prefabNameP2;
     }
 }

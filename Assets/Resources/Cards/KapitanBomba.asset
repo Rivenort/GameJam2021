@@ -23,3 +23,5 @@ MonoBehaviour:
   AttackChance: 90
   Hp: 4
   Armour: 20
+  prefabNameP1: P1-KapitanBomba
+  prefabNameP2: P2-KapitanBomba

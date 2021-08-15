@@ -98,11 +98,65 @@ namespace BestGameEver
             }
         }
 
+        private void HideCards()
+        {
+            PlayerType player = M_GamePlayManager.SGetCurrentPlayer();
+            Transform group = null;
+            if (player == PlayerType.PLAYER_ONE)
+                group = m_groupPlayer1;
+            if (player == PlayerType.PLAYER_TWO)
+                group = m_groupPlayer2;
+
+            foreach (Transform card in group)
+            {
+                card.position = M_CardInitiator.SGetSpawnPoint();
+            }
+            
+            
+        }
+
         public static void SShowCards()
         {
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             s_instance.ShowCards();
+        }
+
+        public static void SHideCards()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.HideCards();
+        }
+
+        private void CardWasUsed(Guid id)
+        {
+            PlayerType player = M_GamePlayManager.SGetCurrentPlayer();
+            switch (player)
+            {
+                case PlayerType.PLAYER_ONE:
+                {
+                    if (m_player1.ContainsKey(id))
+                    {
+                        m_player1.Remove(id);
+                    }
+                } break;
+                case PlayerType.PLAYER_TWO:
+                    {
+                        if (m_player2.ContainsKey(id))
+                        {
+                            m_player2.Remove(id);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        public static void SCardWasUsed(Guid id)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.CardWasUsed(id);
         }
     }
 

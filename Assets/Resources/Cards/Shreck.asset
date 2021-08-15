@@ -23,3 +23,5 @@ MonoBehaviour:
   AttackChance: 100
   Hp: 6
   Armour: 15
+  prefabNameP1: P1-Shreck
+  prefabNameP2: P2-Shreck

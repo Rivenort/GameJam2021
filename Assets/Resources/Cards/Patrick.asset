@@ -23,3 +23,5 @@ MonoBehaviour:
   AttackChance: 70
   Hp: 3
   Armour: 0
+  prefabNameP1: P1-Patrick
+  prefabNameP2: P2-Patrick

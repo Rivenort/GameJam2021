@@ -14,6 +14,8 @@ namespace Error300.Util
         public UnityEvent doOnClick;
 
         private bool m_listening;
+        [SerializeField]
+        private bool m_waitForAnotherCall;
 
         private void OnEnable()
         {
@@ -28,6 +30,8 @@ namespace Error300.Util
                 if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
                 {
                     OnClicked();
+                    if (m_waitForAnotherCall)
+                        m_listening = false;
                 }
             }
         }

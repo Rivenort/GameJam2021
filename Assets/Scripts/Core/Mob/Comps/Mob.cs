@@ -70,27 +70,74 @@ namespace BestGameEver
 
             if (enemy != null)
                 M_MobManager.SDealDamage(this, enemy);
+
+            switch (m_player)
+            {
+                case PlayerType.PLAYER_ONE:
+                    M_GamePlayManager.SAddToPlayer1Points(-m_stats.GetCostAttack());
+                    break;
+                case PlayerType.PLAYER_TWO:
+                    M_GamePlayManager.SAddToPlayer2Points(-m_stats.GetCostAttack());
+                    break;
+            }
+
             callback?.Invoke();
         }
 
         public void PerformGoDown(Action callback)
         {
             m_motor.MoveDown(callback);
+            switch (m_player)
+            {
+                case PlayerType.PLAYER_ONE:
+                    M_GamePlayManager.SAddToPlayer1Points(-m_stats.GetCostMove());
+                    break;
+                case PlayerType.PLAYER_TWO:
+                    M_GamePlayManager.SAddToPlayer2Points(-m_stats.GetCostMove());
+                    break;
+            }
         }
 
         public void PerformGoRight(Action callback)
         {
             m_motor.MoveRight(callback);
+            switch (m_player)
+            {
+                case PlayerType.PLAYER_ONE:
+                    M_GamePlayManager.SAddToPlayer1Points(-m_stats.GetCostMove());
+                    break;
+                case PlayerType.PLAYER_TWO:
+                    M_GamePlayManager.SAddToPlayer2Points(-m_stats.GetCostMove());
+                    break;
+            }
         }
 
         public void PerformGoLeft(Action callback)
         {
             m_motor.MoveLeft(callback);
+            switch (m_player)
+            {
+                case PlayerType.PLAYER_ONE:
+                    M_GamePlayManager.SAddToPlayer1Points(-m_stats.GetCostMove());
+                    break;
+                case PlayerType.PLAYER_TWO:
+                    M_GamePlayManager.SAddToPlayer2Points(-m_stats.GetCostMove());
+                    break;
+            }
         }
 
         public void PerformGoUp(Action callback)
         {
             m_motor.MoveUp(callback);
+            switch (m_player)
+            {
+                case PlayerType.PLAYER_ONE:
+                    M_GamePlayManager.SAddToPlayer1Points(-m_stats.GetCostMove());
+                    break;
+                case PlayerType.PLAYER_TWO:
+                    M_GamePlayManager.SAddToPlayer2Points(-m_stats.GetCostMove());
+                    break;
+            }
         }
 
         public Vector3 GetRootPosition()

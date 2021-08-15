@@ -14,5 +14,7 @@ namespace BestGameEver
         Guid GetId();
 
         CardTemplate GetData();
+
+        void SetData(CardTemplate data);
     }
 }

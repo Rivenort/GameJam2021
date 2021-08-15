@@ -72,23 +72,52 @@ namespace BestGameEver
 
             M_MobManager.SSetChoosenMob(m_mob);
 
+            // Check move cost
+            PlayerType playerType = m_mob.GetPlayer();
+            int points = 0;
+            if (playerType == PlayerType.PLAYER_ONE)
+                points = M_GamePlayManager.SGetPlayer1Points();
+            else if (playerType == PlayerType.PLAYER_TWO)
+                points = M_GamePlayManager.SGetPlayer2Points();
+
+            if (points >= 2)
+            {
+                uiBtnGoDown.interactable = true;
+                uiBtnGoLeft.interactable = true;
+                uiBtnGoRight.interactable = true;
+                uiBtnGoUp.interactable = true;
+            } else
+            {
+                uiBtnGoDown.interactable = false;
+                uiBtnGoLeft.interactable = false;
+                uiBtnGoRight.interactable = false;
+                uiBtnGoUp.interactable = false;
+            }
+            if (points >= m_mob.GetStats().GetCostAttack())
+            {
+                uiBtnAttack.interactable = true;
+            } else
+            {
+                uiBtnAttack.interactable = false;
+            }
+
             // Check movement availability, then disable buttons
-            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.RIGHT))
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.RIGHT) && uiBtnGoRight.interactable)
                 uiBtnGoRight.interactable = true;
             else
                 uiBtnGoRight.interactable = false;
 
-            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.LEFT))
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.LEFT) && uiBtnGoLeft.interactable)
                 uiBtnGoLeft.interactable = true;
             else
                 uiBtnGoLeft.interactable = false;
 
-            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.UP))
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.UP) && uiBtnGoUp.interactable)
                 uiBtnGoUp.interactable = true;
             else
                 uiBtnGoUp.interactable = false;
 
-            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.DOWN))
+            if (M_MapManager.SIsAvailable(m_mob.GetRootPosition(), Directory.DOWN) && uiBtnGoDown.interactable)
                 uiBtnGoDown.interactable = true;
             else
                 uiBtnGoDown.interactable = false;
@@ -100,9 +129,9 @@ namespace BestGameEver
             if (m_mob.GetStats().GetAttackType() == AttackType.RANGE)
                 enemy = M_MapManager.SGetEnemyForRanger(m_mob.GetPlayer(), m_mob.GetRootPosition(), m_mob.GetStats().GetRange());
 
-            if (enemy != null)
+            if (enemy != null && uiBtnAttack.interactable)
             {
-                uiBtnAttack.interactable = true;
+               
 
                 if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
                 {

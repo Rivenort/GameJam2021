@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_ScreenPhaseAction : MonoBehaviour
+namespace BestGameEver
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// @author Rivenort
+    /// </summary>
+    public class UI_ScreenPhaseAction : MonoBehaviour
     {
-        
+
+
+        private void OnEnable()
+        {
+            M_GamePlayManager.SShowCards();
+            M_MobManager.SSetUIEnabledFor(M_GamePlayManager.SGetCurrentPlayer());
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

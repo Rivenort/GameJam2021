@@ -21,7 +21,7 @@ namespace BestGameEver
         public Transform cardsHandLeftPoint;
         public Transform cardsHandRightPoint;
 
-        void Start()
+        void Awake()
         {
             if (s_instance != null && s_instance != this)
                 throw new CE_ComponentSingletonReinitialized();
@@ -45,7 +45,10 @@ namespace BestGameEver
                 obj.transform.SetParent(cardsPlayer1);
             if (player == PlayerType.PLAYER_TWO)
                 obj.transform.SetParent(cardsPlayer2);
-            return obj.GetComponent<ICard>();
+
+            ICard card = obj.GetComponent<ICard>();
+            card.SetData(templ);
+            return card;
         }
 
         public static ICard SInitRand()
@@ -94,6 +97,13 @@ namespace BestGameEver
             if (s_instance == null)
                 throw new CE_SingletonNotInitialized();
             return s_instance.GetPointsForShownCards(countCards);
+        }
+
+        public static Vector3 SGetSpawnPoint()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.spawnPoint.position;
         }
     }
 

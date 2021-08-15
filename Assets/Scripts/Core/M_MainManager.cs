@@ -95,14 +95,6 @@ namespace BestGameEver
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                M_SpawnManager.SExposeSpawnPoints(PlayerType.PLAYER_ONE);
-            }
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                M_SpawnManager.SExposeSpawnPoints(PlayerType.PLAYER_TWO);
-            }
             foreach (UT_IUpdateable updateable in m_singUpdateable)
             {
                 updateable.Update();
