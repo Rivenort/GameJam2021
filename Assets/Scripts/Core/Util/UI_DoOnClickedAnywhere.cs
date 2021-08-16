@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Error300.Util
+namespace BestGameEver
 {
     /// <summary>
     /// @author Rivenort

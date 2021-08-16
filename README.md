@@ -20,3 +20,5 @@ Unity - 2019.4.20f1 (PC-Windows) - C#
     * https://www.instagram.com/rafal_hunter_art/?hl=pl <br />
 
 * UnityDev: Aleksander Kęmpski
+
+[Download](https://github.com/Rivenort/GameJam2021/raw/develop/Build/GameJam2021.rar)
