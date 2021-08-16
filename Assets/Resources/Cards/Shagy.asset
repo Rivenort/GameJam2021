@@ -16,10 +16,10 @@ MonoBehaviour:
   Name: Shagy
   Cost: 4
   Distance: 1
-  MoveCost: 0
+  MoveCost: 1
   AttackType: 0
   Attack: 20
-  AttackCost: 0
+  AttackCost: 8
   AttackChance: 100
   Hp: 2
   Armour: 0

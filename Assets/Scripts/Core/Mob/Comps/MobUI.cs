@@ -62,6 +62,8 @@ namespace BestGameEver
 
         public void OnMobClick()
         {
+            if (m_mob.GetPlayer() != M_GamePlayManager.SGetCurrentPlayer())
+                return;
             if (m_disabled)
                 return;
             if (m_actionIsRunning)

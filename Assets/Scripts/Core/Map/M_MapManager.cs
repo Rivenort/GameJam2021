@@ -197,6 +197,7 @@ namespace BestGameEver
         {
             ScanGrid();
             ScanMobs();
+            ScanSpawns();
         }
 
         private bool IsAvailable(Vector3 currentPos, Directory directory)
@@ -367,6 +368,7 @@ namespace BestGameEver
         public void OnMobActionCompleted(IMob mob)
         {
             ScanMobs();
+            ScanSpawns();
         }
 
         public void Clear()
@@ -376,7 +378,8 @@ namespace BestGameEver
 
         public void OnMobCreated(IMob mob)
         {
-            ScanMobs();
+            Vector3Int cellPos = WorldPosToGridCell(mob.GetRootPosition());
+            m_tiles[cellPos].SetMob(mob.GetId());
         }
 
         public void OnMobDestroyed(Guid mobId)
@@ -389,7 +392,58 @@ namespace BestGameEver
                     break;
                 }
             }
-            ScanMobs();
+        }
+
+        private void ScanSpawns()
+        {
+            List<SpawnPoint> spawns = M_SpawnManager.SGetSpawns();
+            foreach (SpawnPoint spawn in spawns)
+            {
+                Vector3Int cellPos = WorldPosToGridCell(spawn.GetPosition());
+                m_tiles[cellPos].SetSpawn(spawn.GetId());
+            }
+        }
+
+        private bool AreAnySpawnsFree(PlayerType player)
+        {
+            ScanSpawns();
+            foreach (var tileData in m_tiles)
+            {
+                Guid spawnId = tileData.Value.GetSpawn();
+                if (spawnId != Guid.Empty)
+                {
+                    SpawnPoint spawn = M_SpawnManager.SGetSpawn(spawnId);
+                    if (spawn.GetPlayerType() != player)
+                        continue;
+
+                    if (tileData.Value.GetMob() == Guid.Empty)
+                        return true;
+
+                }
+            }
+            return false;
+        }
+
+        private bool IsSpawnFree(Vector3 position)
+        {
+            Vector3Int cellPos = WorldPosToGridCell(position);
+            if (m_tiles[cellPos].GetMob() == Guid.Empty)
+                return true;
+            return false;
+        }
+
+        public static bool SIsSpawnFree(Vector3 position)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.IsSpawnFree(position);
+        }
+
+        public static bool SAreAnySpawnsFree(PlayerType player)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            return s_instance.AreAnySpawnsFree(player);
         }
     }
 

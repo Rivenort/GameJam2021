@@ -1,6 +1,8 @@
 ﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BestGameEver
@@ -16,7 +18,7 @@ namespace BestGameEver
         private const string OBJECTNAME_SPAWNS = "Spawns";
         private Transform m_groupSpawns = null;
 
-        private List<SpawnPoint> m_spawnPoints = new List<SpawnPoint>();
+        private Dictionary<Guid, SpawnPoint> m_spawnPoints = new Dictionary<Guid, SpawnPoint>();
 
         private M_SpawnManager()
         {
@@ -39,27 +41,52 @@ namespace BestGameEver
             {
                 SpawnPoint spawn = child.gameObject.GetComponent<SpawnPoint>();
                 if (spawn != null)
-                    m_spawnPoints.Add(spawn);
+                    m_spawnPoints.Add(spawn.GetId(), spawn);
             }
         }
 
+        public static SpawnPoint SGetSpawn(Guid id)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            if (s_instance.m_spawnPoints.ContainsKey(id))
+                return s_instance.m_spawnPoints[id];
+            Debug.LogWarning("No Spawn point with id: " + id);
+            return null;
+        }
 
         private void ExposeSpawnPoints(PlayerType playerType)
         {
             M_MobManager.SDisableUI();
-            foreach (SpawnPoint spawnPoint in m_spawnPoints)
+            foreach (var spawnPoint in m_spawnPoints)
             {
-                if (spawnPoint.GetPlayerType() == playerType)
-                    spawnPoint.Expose();
+                if (spawnPoint.Value.GetPlayerType() == playerType &&
+                    M_MapManager.SIsSpawnFree(spawnPoint.Value.GetPosition()))
+                    spawnPoint.Value.Expose();
             }
         }
+
+
+        public static List<SpawnPoint> SGetSpawns()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            List<SpawnPoint> res = new List<SpawnPoint>();
+            foreach (var spawn in s_instance.m_spawnPoints)
+            {
+                res.Add(spawn.Value);
+            }
+            return res;
+        }
+
+        
 
         private void InterruptExposedSpawns()
         {
             M_MobManager.SEnableUI();
-            foreach (SpawnPoint spawnPoint in m_spawnPoints)
+            foreach (var spawnPoint in m_spawnPoints)
             {
-                spawnPoint.DisableExspose();
+                spawnPoint.Value.DisableExspose();
             }
         }
 

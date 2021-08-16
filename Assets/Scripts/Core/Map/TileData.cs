@@ -14,7 +14,8 @@ namespace BestGameEver
     {
         private Vector3Int m_position;
         private bool m_isObstacle;
-        private Guid m_mobId;
+        private Guid m_spawnPoint; // Guid.Empty if no
+        private Guid m_mobId; // Guid.Empty if no
 
         public TileData(Vector3Int position)
         {
@@ -29,6 +30,16 @@ namespace BestGameEver
         public void SetObstacle(bool val)
         {
             m_isObstacle = val;
+        }
+
+        public void SetSpawn(Guid spawnId)
+        {
+            m_spawnPoint = spawnId;
+        }
+
+        public Guid GetSpawn()
+        {
+            return m_spawnPoint;
         }
 
         public void SetMob(Guid mobId)

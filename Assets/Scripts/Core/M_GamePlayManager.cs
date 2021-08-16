@@ -27,8 +27,8 @@ namespace BestGameEver
 
         private PlayerType m_turn;
 
-        private int m_player1Points = 30;
-        private int m_player2Points = 30;
+        private int m_player1Points = 10;
+        private int m_player2Points = 10;
         private int m_pointsOnNewTurn = 10;
 
         private M_GamePlayManager()
@@ -216,6 +216,7 @@ namespace BestGameEver
                     m_player2Points += m_pointsOnNewTurn;
                     break;
             }
+
 
             m_eventOnPointsChange?.Invoke(m_turn, SGetCurrentPlayerPoints());
             m_eventOnNewTurn?.Invoke(m_turn);

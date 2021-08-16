@@ -148,26 +148,6 @@ namespace BestGameEver
             }
         }
 
-        private void SetUIEnabledFor(PlayerType player)
-        {
-            foreach (var mob in m_mobs)
-            {
-                if (mob.Value.GetPlayer() == player)
-                {
-                    mob.Value.EnableUI();
-                } else
-                {
-                    mob.Value.DisableUI();
-                }
-            }
-        }
-
-        public static void SSetUIEnabledFor(PlayerType player)
-        {
-            if (s_instance == null)
-                throw new CE_SingletonNotInitialized();
-            s_instance.SetUIEnabledFor(player);
-        }
 
         public static void SDisableUI()
         {

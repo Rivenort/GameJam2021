@@ -23,7 +23,7 @@ namespace BestGameEver
         public TMP_Text uiTextRange;
         public Image uiIcon;
         private Button m_uiButton;
-        private UI_FadeOutSelf m_fadeOut;
+        private UI_FadeOut2 m_fadeOut;
 
         public CardTemplate cardTemplate;
 
@@ -45,7 +45,7 @@ namespace BestGameEver
                 m_id = Guid.NewGuid();
             m_uiButton = GetComponentInChildren<Button>();
             m_uiButton.onClick.AddListener(OnClick);
-            m_fadeOut = GetComponent<UI_FadeOutSelf>();
+            m_fadeOut = GetComponent<UI_FadeOut2>();
         }
 
         public CardTemplate GetData()
@@ -77,13 +77,23 @@ namespace BestGameEver
         {
             if (cardTemplate.Cost > M_GamePlayManager.SGetCurrentPlayerPoints())
                 return;
-
+            
             PlayerType player = M_GamePlayManager.SGetCurrentPlayer();
+            if (!M_MapManager.SAreAnySpawnsFree(player))
+            {
+                UI_ScreenMsgFreeSpace.SShow();
+                return;
+            }
+
             M_GamePlayManager.SAddToCurrentPlayer(-cardTemplate.Cost);
+
             if (player == PlayerType.PLAYER_ONE)
                 M_GamePlayManager.SDeployMob(cardTemplate.prefabNameP1);
             else if (player == PlayerType.PLAYER_TWO)
                 M_GamePlayManager.SDeployMob(cardTemplate.prefabNameP2);
+
+            UI_ButtonNextTurn.SSetInteractible(false);
+            UI_ButtonShowCards.SSetInteractible(false);
 
             m_fadeOut?.Run();
             if (m_fadeOut == null)

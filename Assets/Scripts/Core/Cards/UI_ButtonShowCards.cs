@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 namespace BestGameEver
 {
+    /// <summary>
+    /// [Component Singleton]
+    /// @author Rivenort
+    /// </summary>
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Button))]
     public class UI_ButtonShowCards : MonoBehaviour
     {
+        private static UI_ButtonShowCards s_instance = null;
+
         public Sprite texCardsHidden;
         public Sprite texCardsShown;
         private Button m_button;
@@ -19,6 +25,10 @@ namespace BestGameEver
 
         void Start()
         {
+            if (s_instance != null && s_instance != this)
+                throw new CE_ComponentSingletonReinitialized();
+            s_instance = this;
+
             m_image = GetComponent<Image>();
             m_button = GetComponent<Button>();
 
@@ -42,6 +52,13 @@ namespace BestGameEver
                 m_areCardsHidden = true;
                 M_CardManager.SHideCards();
             }
+        }
+
+        public static void SSetInteractible(bool val)
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.m_button.interactable = val;
         }
 
         void Update()

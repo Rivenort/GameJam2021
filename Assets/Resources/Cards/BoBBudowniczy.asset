@@ -20,8 +20,8 @@ MonoBehaviour:
   AttackType: 0
   Attack: 1
   AttackCost: 2
-  AttackChance: 0
-  Hp: 2
+  AttackChance: 100
+  Hp: 10
   Armour: 15
   prefabNameP1: P1-BobBudowniczy
   prefabNameP2: P2-BobBudowniczy

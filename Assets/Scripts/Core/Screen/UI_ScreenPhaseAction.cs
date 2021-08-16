@@ -14,7 +14,6 @@ namespace BestGameEver
         private void OnEnable()
         {
             M_GamePlayManager.SShowCards();
-            M_MobManager.SSetUIEnabledFor(M_GamePlayManager.SGetCurrentPlayer());
         }
 
     }

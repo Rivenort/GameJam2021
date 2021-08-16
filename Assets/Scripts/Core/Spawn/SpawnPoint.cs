@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,13 +19,29 @@ namespace BestGameEver
         [SerializeField]
         private PlayerType m_player;
 
+        private Guid m_id;
+
         void Start()
         {
+            if (m_id == Guid.Empty)
+                m_id = Guid.NewGuid();
             m_clickableObject = GetComponentInChildren<ClickableObject>();
             m_scaleAnim = GetComponent<UT_ScaleUpDown>();
             m_clickableObject.disabled = true;
             m_clickableObject.Func = OnClick;
             m_model.SetActive(false);
+        }
+
+        public Guid GetId()
+        {
+            if (m_id == Guid.Empty)
+                m_id = Guid.NewGuid();
+            return m_id;
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position;
         }
 
         private void OnClick()
@@ -34,6 +51,9 @@ namespace BestGameEver
             else if (m_player == PlayerType.PLAYER_TWO)
                 M_MobInitalizer.SInitP2(this);
             M_SpawnManager.SInterruprtExposedSpawns();
+
+            UI_ButtonNextTurn.SSetInteractible(true);
+            UI_ButtonShowCards.SSetInteractible(true);
         }
 
         public void Expose()
