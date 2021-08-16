@@ -13,10 +13,10 @@ Unity - 2019.4.20f1 (PC-Windows) - C#
 	
 ## Authors
 * Programmer: Rivenort - Dominik Kawka <br />
-&nbsp;&nbsp;&nbsp;&nbsp; * http://rivenort.pl/
+    * http://rivenort.pl/
 	
-* Artist: Rafał Chałupnik
-&nbsp;&nbsp;&nbsp;&nbsp; * https://www.artstation.com/rafal_hunter <br />
-&nbsp;&nbsp;&nbsp;&nbsp; * https://www.instagram.com/rafal_hunter_art/?hl=pl <br />
+* Artist: Rafał Chałupnik <br />
+    * https://www.artstation.com/rafal_hunter <br />
+    * https://www.instagram.com/rafal_hunter_art/?hl=pl <br />
 
 * UnityDev: Aleksander Kęmpski
