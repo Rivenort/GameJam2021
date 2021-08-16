@@ -21,4 +21,4 @@ Unity - 2019.4.20f1 (PC-Windows) - C#
 
 * UnityDev: Aleksander Kęmpski
 
-[Download](https://github.com/Rivenort/GameJam2021/raw/develop/Build/GameJam2021.rar)
+[Download](https://github.com/Rivenort/GameJam2021/raw/develop/Build/Unity_GameJam2021.rar)
