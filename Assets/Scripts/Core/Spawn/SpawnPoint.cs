@@ -54,6 +54,7 @@ namespace BestGameEver
 
             UI_ButtonNextTurn.SSetInteractible(true);
             UI_ButtonShowCards.SSetInteractible(true);
+            M_CardManager.SShowCards();
         }
 
         public void Expose()

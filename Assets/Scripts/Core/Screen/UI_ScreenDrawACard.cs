@@ -23,7 +23,7 @@ namespace BestGameEver
 
         public void OnScreenFinished()
         {
-            uiScreenPhaseAction.gameObject.SetActive(true);
+            M_GamePlayManager.SCallPhaseDrawCardEnded();
         }
         
     }

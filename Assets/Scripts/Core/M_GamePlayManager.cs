@@ -229,6 +229,17 @@ namespace BestGameEver
             s_instance.NewTurn();
         }
 
+        private void CallPhaseDrawCardEnded()
+        {
+            m_eventOnActionPhase?.Invoke();
+        }
+
+        public static void SCallPhaseDrawCardEnded()
+        {
+            if (s_instance == null)
+                throw new CE_SingletonNotInitialized();
+            s_instance.CallPhaseDrawCardEnded();
+        }
 
         private void ShowCards()
         {

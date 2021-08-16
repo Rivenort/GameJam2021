@@ -46,6 +46,8 @@ namespace BestGameEver
             m_uiButton = GetComponentInChildren<Button>();
             m_uiButton.onClick.AddListener(OnClick);
             m_fadeOut = GetComponent<UI_FadeOut2>();
+            if (m_fadeOut != null)
+                m_fadeOut.onComplete.AddListener(OnFadeOutFinished);
         }
 
         public CardTemplate GetData()
@@ -94,6 +96,7 @@ namespace BestGameEver
 
             UI_ButtonNextTurn.SSetInteractible(false);
             UI_ButtonShowCards.SSetInteractible(false);
+            M_CardManager.SHideCards();
 
             m_fadeOut?.Run();
             if (m_fadeOut == null)
@@ -103,7 +106,7 @@ namespace BestGameEver
         private void OnFadeOutFinished()
         {
             M_CardManager.SCardWasUsed(m_id);
-            GameObject.Destroy(this);
+            GameObject.Destroy(this.gameObject);
         }
     }
 

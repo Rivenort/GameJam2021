@@ -10,12 +10,24 @@ namespace BestGameEver
     public class UI_ScreenPhaseAction : MonoBehaviour
     {
 
+        private bool m_wasFirstUpdate = false;
 
-        private void OnEnable()
+
+        private void Update()
         {
-            M_GamePlayManager.SShowCards();
+            if (!m_wasFirstUpdate)
+            {
+                m_wasFirstUpdate = true;
+                M_GamePlayManager.SAddListener_OnActionPhase(OnActionPhase);
+                gameObject.SetActive(false);
+            }
         }
 
+        private void OnActionPhase()
+        {
+            M_GamePlayManager.SShowCards();
+            gameObject.SetActive(true);
+        }
     }
 
 }
