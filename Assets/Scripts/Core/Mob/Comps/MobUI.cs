@@ -20,6 +20,7 @@ namespace BestGameEver
         public Button uiBtnAttack;
         public TMP_Text uiTextHealth;
         public TMP_Text uiTextAttack;
+        public GameObject uiTextMiss;
 
         private bool m_actionIsRunning = false;
         private bool m_disabled = false;
@@ -125,26 +126,44 @@ namespace BestGameEver
                 uiBtnGoDown.interactable = false;
 
             // Check attack availability
-            IMob enemy = null;
-            if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
-                enemy = M_MapManager.SGetEnemyForMelee(m_mob.GetPlayer(), m_mob.GetRootPosition());
-            if (m_mob.GetStats().GetAttackType() == AttackType.RANGE)
-                enemy = M_MapManager.SGetEnemyForRanger(m_mob.GetPlayer(), m_mob.GetRootPosition(), m_mob.GetStats().GetRange());
-
-            if (enemy != null && uiBtnAttack.interactable)
+            if (m_mob.IsPanoramix() && uiBtnAttack.interactable)
             {
-               
-
-                if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
+                IMob ally = M_MapManager.SGetAllyForRanger(m_mob.GetPlayer(), m_mob.GetRootPosition(), m_mob.GetStats().GetRange());
+                
+                if (ally != null)
                 {
-                    if (m_mob.GetPlayer() == PlayerType.PLAYER_ONE)
-                        uiBtnGoRight.interactable = false;
-                    else if (m_mob.GetPlayer() == PlayerType.PLAYER_TWO)
-                        uiBtnGoLeft.interactable = false;
+                    bool isHurt = ally.GetStats().GetMaxHp() != ally.GetStats().GetHp();
+                    if (isHurt)
+                        uiBtnAttack.interactable = true;
+                } else
+                {
+                    uiBtnAttack.interactable = false;
                 }
+            } else
+            {
+                IMob enemy = null;
+                if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
+                    enemy = M_MapManager.SGetEnemyForMelee(m_mob.GetPlayer(), m_mob.GetRootPosition());
+                if (m_mob.GetStats().GetAttackType() == AttackType.RANGE)
+                    enemy = M_MapManager.SGetEnemyForRanger(m_mob.GetPlayer(), m_mob.GetRootPosition(), m_mob.GetStats().GetRange());
+
+                if (enemy != null && uiBtnAttack.interactable)
+                {
+
+
+                    if (m_mob.GetStats().GetAttackType() == AttackType.MELEE)
+                    {
+                        if (m_mob.GetPlayer() == PlayerType.PLAYER_ONE)
+                            uiBtnGoRight.interactable = false;
+                        else if (m_mob.GetPlayer() == PlayerType.PLAYER_TWO)
+                            uiBtnGoLeft.interactable = false;
+                    }
+                }
+                else
+                    uiBtnAttack.interactable = false;
             }
-            else
-                uiBtnAttack.interactable = false;
+
+
 
 
             RefreshStatWidgets();
@@ -250,6 +269,11 @@ namespace BestGameEver
         public void EnableUI()
         {
             m_disabled = false;
+        }
+
+        public void ShowMissText()
+        {
+            uiTextMiss.gameObject.SetActive(true);
         }
     }
 

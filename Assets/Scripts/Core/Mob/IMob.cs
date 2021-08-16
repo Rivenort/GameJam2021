@@ -46,6 +46,8 @@ namespace BestGameEver
 
         void SetStats(CardTemplate cardData);
 
+        bool IsPanoramix();
+
         MobStats GetStats();
 
         Vector3 GetRootPosition();

@@ -64,7 +64,8 @@ namespace BestGameEver
 
             int randIndex = UnityEngine.Random.Range(0, randFrom.Count);
             CardTemplate templ = deck[randFrom[randIndex]];
-            
+                
+
             switch (player)
             {
                 case PlayerType.PLAYER_ONE:

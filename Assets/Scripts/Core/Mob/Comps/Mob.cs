@@ -186,8 +186,11 @@ namespace BestGameEver
 
             m_stats.DealDamage(damage);
             MobHitAnim hitAnim = GetComponent<MobHitAnim>();
-            if (hitAnim != null)
+            MobMissAnim missAnim = GetComponent<MobMissAnim>();
+            if (hitAnim != null && damage > 0)
                 hitAnim.Run(() => { });
+            else if (missAnim != null && damage == 0)
+                missAnim.Run(() => { });
 
             if (m_stats.GetHp() == 0)
             {
@@ -274,6 +277,13 @@ namespace BestGameEver
         public void Heal()
         {
             m_stats.SetHp(m_stats.GetMaxHp());
+        }
+
+        public bool IsPanoramix()
+        {
+            if (GetComponent<Panoramix>() != null)
+                return true;
+            return false;
         }
     }
 

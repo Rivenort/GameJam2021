@@ -19,7 +19,7 @@ MonoBehaviour:
   MoveCost: 2
   AttackType: 1
   Attack: 1
-  AttackCost: 1
+  AttackCost: 4
   AttackChance: 50
   Hp: 2
   Armour: 0
