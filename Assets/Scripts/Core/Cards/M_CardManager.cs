@@ -82,37 +82,12 @@ namespace BestGameEver
 
         private void ShowCards()
         {
-            PlayerType player = M_GamePlayManager.SGetCurrentPlayer();
-            Transform group = null;
-            if (player == PlayerType.PLAYER_ONE)
-                group = m_groupPlayer1;
-            if (player == PlayerType.PLAYER_TWO)
-                group = m_groupPlayer2;
-
-            Vector3[] positions = M_CardInitiator.SGetPointsForShownCards(group.childCount);
-            int i = 0;
-            foreach (Transform card in group)
-            {
-                card.position = positions[i];
-                i++;
-            }
+            M_CardInitiator.SShowCards(M_GamePlayManager.SGetCurrentPlayer());
         }
 
         private void HideCards()
         {
-            PlayerType player = M_GamePlayManager.SGetCurrentPlayer();
-            Transform group = null;
-            if (player == PlayerType.PLAYER_ONE)
-                group = m_groupPlayer1;
-            if (player == PlayerType.PLAYER_TWO)
-                group = m_groupPlayer2;
-
-            foreach (Transform card in group)
-            {
-                card.position = M_CardInitiator.SGetSpawnPoint();
-            }
-            
-            
+            M_CardInitiator.SHideCards(M_GamePlayManager.SGetCurrentPlayer());
         }
 
         public static void SShowCards()
